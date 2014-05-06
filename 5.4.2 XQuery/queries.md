@@ -102,4 +102,40 @@ return
         </actors>
     </result>
 }</results>`
-8. 
+8. **For each movie that has at least two actors, list the title and firs two actors, and an empty "et-al"element if the movie has additional actors.**
+    `<results>{
+let $ms := doc("movies/movies_alone.xml"),
+$as := doc("movies/artists_alone.xml")
+for $movie in $ms//movie 
+let $count := count($movie/actor)
+return
+    if($count > 1) then
+        <result>
+            {$movie/title} 
+        {for $a in subsequence($movie/actor, 1, 2), $actor in $as//artist[@id = $a/@id]
+        return        
+               <actor>{$actor/first_name/text()} {$actor/last_name/text()} as {string($a/@role)} </actor>            
+        }
+        {if($count > 2) then
+            <et-al/>
+        else
+            ()
+        }
+        </result>
+    else
+        ()
+}</results>`
+9. **List the titles and years of all movies directed by Clint Eastwood after 1990, in alphabetical order**
+    `<results>{
+let $ms := doc("movies/movies_alone.xml"),
+$as := doc("movies/artists_alone.xml")
+for $actor in $as//artist[first_name="Clint" and last_name="Eastwood"]
+    for $movie in $ms//movie[director/@id = $actor//@id]
+    where $movie/year > 1990
+    order by $movie/title
+    return 
+        <result>
+            {$movie/title}
+            {$movie/year}
+        </result>
+}</results>`
