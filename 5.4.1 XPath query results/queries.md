@@ -10,5 +10,5 @@
 10. **What was the role of Clint Eastwoord in Unforgiven?** /movies/movie[title="Unforgiven"]/actor[first_name="Clint" and last_name="Eastwood"]/role/text()
 11. **What is the last movie of the document?**/movies/movie[last()]
 12. **Title of the film that immediatly precedes Marie Antoinette in the document?** /movies/movie[title="Marie Antoinette"]/preceding-sibling::*[1]/title/text()
-13. **Get the movies whose title containts a "V"** /movies/movie[contains(title, "V")]/title/text()
-14. **Get the movies whose cast consist of exactly three actors** /movies/movie[count(actor) = 3]/title/text()
+13. **Get the movies whose title containts a "V"** /movies/movie[contains(title, "V")]
+14. **Get the movies whose cast consist of exactly three actors** /movies/movie[count(actor) = 3]
