@@ -1,33 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <div xmlns="http://www.w3.org/1999/xhtml" data-template="templates:surround" data-template-with="templates/page.html" data-template-at="content">
-    <form name="search" action="" method="get">
-        Enter Movie Title: <input type="text" name="title"/>
-        <br/>
-        <br/>
-        Select Movie Genre: 
-        <select name="genre">
-            <option value="crime">Crime</option>
-            <option value="drama">Drama</option>
-            <option value="western">Western</option>
-            <option value="action">Action</option>
-            <option value="comedy">Comedy</option>
-            <option value="documentary">Documentary</option>
-        </select>
-        <br/>
-        <br/>
-        Enter Director's First and Last Name (separated by space): <input type="text" name="director"/>
-        <br/>
-        <br/>
-        Enter Actor's First and Last Name (separated by space): <input type="text" name="actor"/>
-        <br/>
-        <br/>
-        Enter Movie Release Year: <input type="text" name="year"/>
-        <br/>
-        <br/>
-        Enter Movie Keywords: <input type="text" name="summary"/>
-        <br/>
-        <br/>
-        <input type="submit" value="Search"/>
-    </form>
-    <p class="app:submit"/>
+    <div class="container">
+        <form name="search" class="form-inline" role="form" action="" method="get">
+            <div class="form-group">
+                <label class="sr-only">Title</label>
+                <input type="text" name="title" class="form-control" placeholder="Title"/>
+            </div>
+            <div class="form-group">
+                <label class="sr-only">Year</label>
+                <input type="text" name="year" class="form-control" placeholder="Year"/>
+            </div>
+            <div class="form-group">
+                <label class="sr-only">Director</label>
+                <input type="text" name="director" class="form-control" placeholder="Director"/>
+            </div>
+            <div class="form-group">
+                <label class="sr-only">Actor</label>
+                <input type="text" name="actor" class="form-control" placeholder="Actor"/>
+            </div>
+            <div class="form-group">
+                <label class="sr-only">Keywords</label>
+                <input type="text" name="keywords" class="form-control" placeholder="Keywords"/>
+            </div>
+            <div class="form-group">
+                <label class="sr-only">Genre</label>
+                <select class="form-control" name="genre">
+                    <option value="">Pick Genre</option>
+                    <option value="crime">Crime</option>
+                    <option value="drama">Drama</option>
+                    <option value="western">Western</option>
+                    <option value="action">Action</option>
+                    <option value="comedy">Comedy</option>
+                    <option value="documentary">Documentary</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-default">Search</button>
+        </form>
+        <div class="app:submit">
+            <p class="app:submit"/>
+        </div>
+    </div>
 </div>
