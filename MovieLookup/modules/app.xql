@@ -22,25 +22,25 @@ declare function app:submit($node as node(), $model as map(*), $query as xs:stri
         let $title := lower-case(normalize-space($query))
         for $movie in $movie_list[contains(lower-case(title/text()), $title)]
         return
-            $movie
+            <div>{app:display($movie)}</div>
     )
     else if ($querytype = "keywords") then (
         for $movie in $movie_list
         return
-            $movie
+            <div>{app:display($movie)}</div>
     )
     else if ($querytype = "year") then (
         let $year := lower-case(normalize-space($query))
         for $movie in $movie_list[year/text() = $year]
         return
-            $movie
+            <div>{app:display($movie)}</div>
     )
     else if ($querytype = "director") then (
         let $director_fname := lower-case(substring-before(normalize-space($query), ' '))
         let $director_lname := lower-case(substring-after(normalize-space($query), ' '))
         for $movie in $movie_list[(lower-case(director/first_name/text()) = $director_fname) and (lower-case(director/last_name/text()) = $director_lname)]     
         return
-            $movie
+            <div>{app:display($movie)}</div>
     )
     else if ($querytype = "actor") then (
         let $actor_fname := lower-case(substring-before(normalize-space($query), ' '))
@@ -49,18 +49,25 @@ declare function app:submit($node as node(), $model as map(*), $query as xs:stri
             for $actor in $movie/actor
             where (lower-case($actor/first_name/text()) = $actor_fname) and (lower-case($actor/last_name/text()) = $actor_lname)      
             return
-                $movie
+                <div>{app:display($movie)}</div>
     )
     else if ($querytype = "genre") then (
         let $genre := lower-case(normalize-space($query))
         for $movie in $movie_list[contains(lower-case(genre/text()), $genre)]
         return
-            $movie
+            <div>{app:display($movie)}</div>
     )
     else
         ()
 };
 
-declare function app:display($node as node(), $model as map(*), $movie as xs:string?) {
-    <div class="container-fluid">{$movie}</div>
+declare function app:display($movies as node()) {
+    <div class="table-responsive">
+      <table class="table table-hover">
+        <tr>
+            <td>{$movies/title/text()}</td>
+            <td>{$movies/year/text()}</td>
+        </tr>
+      </table>
+    </div>    
 };
