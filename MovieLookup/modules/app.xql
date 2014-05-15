@@ -15,8 +15,8 @@ declare function app:submit($node as node(), $model as map(*), $query as xs:stri
     return
         if ($query = "") then 
         (
-            <div>{app:displayEmpty()}</div>
-        )        
+            <div>{app:displayEmpty('Please enter your search string.')}</div>
+        )
         else 
         (
             switch ($querytype)
@@ -61,12 +61,38 @@ declare function app:submit($node as node(), $model as map(*), $query as xs:stri
                     <div>{app:display($movie)}</div> 
                         
             default return
-                <div>{app:displayEmpty()}</div>
+                let $title := lower-case(normalize-space($query))
+                let $keywords := $title
+                let $year := $title
+                let $genre := $title
+                let $director_fname := lower-case(substring-before(normalize-space($query), ' '))
+                let $director_lname := lower-case(substring-after(normalize-space($query), ' '))
+                let $actor_fname := $director_fname
+                let $actor_lname := $director_lname
+                for $movie in $movie_list[(contains(lower-case(title/text()), $title)) or (contains(lower-case(summary/text()), $keywords)) or (year/text() = $year) or ((lower-case(director/first_name/text()) = $director_fname) and (lower-case(director/last_name/text()) = $director_lname)) or (contains(lower-case(genre/text()), $genre))]
+                    return
+                        <div>{
+                            if ($movie) then
+                                app:display($movie)
+                            else 
+                            (
+                                for $movie in $movie_list
+                                    for $actor in $movie/actor
+                                    where (lower-case($actor/first_name/text()) = $actor_fname) and (lower-case($actor/last_name/text()) = $actor_lname)
+                                    return
+                                        <div>{
+                                            if ($movie) then
+                                                app:display($movie)
+                                            else
+                                                <div>{app:displayEmpty('No results found.')}</div>
+                                        }</div>     
+                            )
+                        }</div>  
         )
 };
 
-declare function app:displayEmpty() {
-    <div class="container">Please enter a search criteria!</div>
+declare function app:displayEmpty($displayString as xs:string?) {
+    <div class="container">{$displayString}</div>
 };
 
 declare function app:display($movies as node()) {
