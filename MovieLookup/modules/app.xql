@@ -13,61 +13,75 @@ declare function app:submit($node as node(), $model as map(*), $query as xs:stri
     let $query := lower-case($query)
     let $movie_list := collection("apps/movie-lookup/movies")/movies/movie
     return
-    if (empty($query)) then (
-        <div class="container">
-            <h2>Please enter a search criteria!</h2>
-        </div>
-    )
-    else if ($querytype = "title") then (
-        let $title := lower-case(normalize-space($query))
-        for $movie in $movie_list[contains(lower-case(title/text()), $title)]
-        return
-            <div>{app:display($movie)}</div>
-    )
-    else if ($querytype = "keywords") then (
-        for $movie in $movie_list
-        return
-            <div>{app:display($movie)}</div>
-    )
-    else if ($querytype = "year") then (
-        let $year := lower-case(normalize-space($query))
-        for $movie in $movie_list[year/text() = $year]
-        return
-            <div>{app:display($movie)}</div>
-    )
-    else if ($querytype = "director") then (
-        let $director_fname := lower-case(substring-before(normalize-space($query), ' '))
-        let $director_lname := lower-case(substring-after(normalize-space($query), ' '))
-        for $movie in $movie_list[(lower-case(director/first_name/text()) = $director_fname) and (lower-case(director/last_name/text()) = $director_lname)]     
-        return
-            <div>{app:display($movie)}</div>
-    )
-    else if ($querytype = "actor") then (
-        let $actor_fname := lower-case(substring-before(normalize-space($query), ' '))
-        let $actor_lname := lower-case(substring-after(normalize-space($query), ' '))
-        for $movie in $movie_list
-            for $actor in $movie/actor
-            where (lower-case($actor/first_name/text()) = $actor_fname) and (lower-case($actor/last_name/text()) = $actor_lname)      
-            return
-                <div>{app:display($movie)}</div>
-    )
-    else if ($querytype = "genre") then (
-        let $genre := lower-case(normalize-space($query))
-        for $movie in $movie_list[contains(lower-case(genre/text()), $genre)]
-        return
-            <div>{app:display($movie)}</div>
-    )
-    else
-        ()
+        if ($query = "") then 
+        (
+            <div>{app:displayEmpty()}</div>
+        )        
+        else 
+        (
+            switch ($querytype)
+            case "title" return 
+                let $title := lower-case(normalize-space($query))
+                for $movie in $movie_list[contains(lower-case(title/text()), $title)]
+                return
+                    <div>{app:display($movie)}</div>    
+            
+            case "keywords" return 
+                let $keywords := lower-case(normalize-space($query))
+                for $movie in $movie_list[contains(lower-case(summary/text()), $keywords)]
+                return
+                    <div>{app:display($movie)}</div> 
+                        
+            case "year" return 
+                let $year := lower-case(normalize-space($query))
+                for $movie in $movie_list[year/text() = $year]
+                return
+                    <div>{app:display($movie)}</div>
+                        
+            case "director" return 
+                let $director_fname := lower-case(substring-before(normalize-space($query), ' '))
+                let $director_lname := lower-case(substring-after(normalize-space($query), ' '))
+                for $movie in $movie_list[(lower-case(director/first_name/text()) = $director_fname) and (lower-case(director/last_name/text()) = $director_lname)]     
+                return
+                    <div>{app:display($movie)}</div> 
+                        
+            case "actor" return 
+                let $actor_fname := lower-case(substring-before(normalize-space($query), ' '))
+                let $actor_lname := lower-case(substring-after(normalize-space($query), ' '))
+                for $movie in $movie_list
+                    for $actor in $movie/actor
+                    where (lower-case($actor/first_name/text()) = $actor_fname) and (lower-case($actor/last_name/text()) = $actor_lname)      
+                    return
+                        <div>{app:display($movie)}</div>  
+                        
+            case "genre" return 
+                let $genre := lower-case(normalize-space($query))
+                for $movie in $movie_list[contains(lower-case(genre/text()), $genre)]
+                return
+                    <div>{app:display($movie)}</div> 
+                        
+            default return
+                <div>{app:displayEmpty()}</div>
+        )
+};
+
+declare function app:displayEmpty() {
+    <div class="container">Please enter a search criteria!</div>
 };
 
 declare function app:display($movies as node()) {
-    <div class="table-responsive">
-      <table class="table table-hover">
+    <div class="table-condensed">
+      <table class="table table-hover table-striped">
         <tr>
-            <td>{$movies/title/text()}</td>
+            <td><a href="app:">{$movies/title/text()}</a></td>
             <td>{$movies/year/text()}</td>
         </tr>
       </table>
+    </div>    
+};
+
+declare function app:movie_info($movies as node()) {
+    <div>
+        Hi!
     </div>    
 };
