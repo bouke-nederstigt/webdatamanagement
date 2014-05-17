@@ -21,25 +21,41 @@ declare function app:test($node as node(), $model as map(*)) {
         function was triggered by the class attribute <code>class="app:test"</code>.</p>
 };
 
-(: ~
- :  Display list of all available plays
- : :)
- declare function app:plays($node as node(), $model as map(*)) {    
-    let $style := doc("shakespeare/shakes.xsl")
-    for $xml in collection("shakespeare")
-    return
-        transform:transform($xml/PLAY/TITLE, $style/PLAY, ())
- };
+declare function app:controller($node as node(), $model as map(*), $query as xs:string?, $title as xs:string? ) {
+    let $query := lower-case($query)
+    let $plays := collection("shakespeare")
+    let $title := if(empty($title))
+        then false()
+        else
+            xmldb:decode($title)
+  
+    return 
+        switch ($query)
+            case "content" return                   
+                    <div>{app:contents($title)}</div>
+          
+          default return
+            <ul>{
+                let $style := doc("/db/apps/shakespeare/resources/shakes.xsl")            
+                for $plays in collection("shakespeare")    
+                order by $plays/PLAY/TITLE/text()
+                return 
+                    <li><a href="?query=content&amp;title={$plays/PLAY/TITLE/text()}">{$plays/PLAY/TITLE/text()}</a>{$query}</li>              
+            }</ul>    
+};
 
 (: ~
- : Function to retrieve contents of a shakespeare play.
- : @param $play the Play that needs to be retrieves
+ : Function to display contents of a shakespeare play.
+ : @param $title The play that needs to be retrieves
  :)
 
-declare function app:get_contents($node as node(), $model as map(*), $title as element()) {
-    if($title) then
-        <p> Display contents of {$title} </p>
-    else
-        ()
+declare function app:contents($title as xs:string) {
+    let $style := doc("/db/apps/shakespeare/resources/xslt/content.xsl")
+    
+    for $play in collection("shakespeare")
+    where $play/PLAY/TITLE/text() = $title
+    return
+        transform:transform($play, $style, ())
 };
+
 
