@@ -3,7 +3,7 @@ xquery version "3.0";
 module namespace app="http://exist/apps/movie-lookup/templates";
 import module namespace templates="http://exist-db.org/xquery/templates" at "templates.xql";
 import module namespace config="http://exist/apps/movie-lookup/config" at "config.xqm";
-declare namespace transform="http://exist-db.org/xquery/transform";
+declare namespace transform ="http://exist-db.org/xquery/transform";
 
 (:
  :  Retrieve the list of movies based on the filter criteria
@@ -67,8 +67,6 @@ declare function app:submit($node as node(), $model as map(*), $query as xs:stri
                 let $genre := $title
                 let $director_fname := lower-case(substring-before(normalize-space($query), ' '))
                 let $director_lname := lower-case(substring-after(normalize-space($query), ' '))
-                let $actor_fname := $director_fname
-                let $actor_lname := $director_lname
                 for $movie in $movie_list[(contains(lower-case(title/text()), $title)) or (contains(lower-case(summary/text()), $keywords)) or (year/text() = $year) or ((lower-case(director/first_name/text()) = $director_fname) and (lower-case(director/last_name/text()) = $director_lname)) or (contains(lower-case(genre/text()), $genre))]
                     return
                         <div>{
@@ -77,6 +75,8 @@ declare function app:submit($node as node(), $model as map(*), $query as xs:stri
                             else 
                             (
                                 for $movie in $movie_list
+                                    let $actor_fname := $director_fname
+                                    let $actor_lname := $director_lname
                                     for $actor in $movie/actor
                                     where (lower-case($actor/first_name/text()) = $actor_fname) and (lower-case($actor/last_name/text()) = $actor_lname)
                                     return
@@ -96,14 +96,20 @@ declare function app:displayEmpty($displayString as xs:string?) {
 };
 
 declare function app:display($movies as node()) {
+    let $xsl := doc("/db/apps/movie-lookup/movie-lookup.xsl")
+    return
+        transform:transform($movies, $xsl, ())    
+    (:
     <div class="table-condensed">
       <table class="table table-hover table-striped">
         <tr>
-            <td><a href="app:">{$movies/title/text()}</a></td>
+            <td><a href="">{$movies/title/text()}</a></td>
             <td>{$movies/year/text()}</td>
+            <td>{$movies/summary/text()}</td>
         </tr>
       </table>
     </div>    
+    :)
 };
 
 declare function app:movie_info($movies as node()) {
