@@ -5,7 +5,7 @@ import module namespace templates="http://exist-db.org/xquery/templates" at "tem
 import module namespace config="http://exist/apps/movie-lookup/config" at "config.xqm";
 declare namespace transform ="http://exist-db.org/xquery/transform";
 
-(:
+ (:
  :  Retrieve the list of movies based on the filter criteria
  :)
 declare function app:submit($node as node(), $model as map(*), $query as xs:string?, $querytype as xs:string?) {
@@ -98,22 +98,5 @@ declare function app:displayEmpty($displayString as xs:string?) {
 declare function app:display($movies as node()) {
     let $xsl := doc("/db/apps/movie-lookup/movie-lookup.xsl")
     return
-        transform:transform($movies, $xsl, ())    
-    (:
-    <div class="table-condensed">
-      <table class="table table-hover table-striped">
-        <tr>
-            <td><a href="">{$movies/title/text()}</a></td>
-            <td>{$movies/year/text()}</td>
-            <td>{$movies/summary/text()}</td>
-        </tr>
-      </table>
-    </div>    
-    :)
-};
-
-declare function app:movie_info($movies as node()) {
-    <div>
-        Hi!
-    </div>    
+        transform:transform($movies, $xsl, ())
 };
