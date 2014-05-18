@@ -99,7 +99,22 @@ declare function app:submit($node as node(), $model as map(*), $query as xs:stri
                             $movie
                 )
                 return 
-                    transform:transform($movies, $xsl, ())
+                    if (empty($movies)) then
+                        let $movies_based_on_actors := (
+                            let $actor_fname := $director_fname
+                            let $actor_lname := $director_lname                            
+                            for $movie in $movie_list
+                                for $actor in $movie/actor[(lower-case(first_name/text()) = $actor_fname) and (lower-case(last_name/text()) = $actor_lname)]
+                                return
+                                    $movie
+                        )
+                        return 
+                            if (empty($movies_based_on_actors)) then
+                                <div>{app:displayEmpty('No results found.')}</div>
+                            else
+                                transform:transform($movies_based_on_actors, $xsl, ())
+                    else
+                        transform:transform($movies, $xsl, ())
         )
 };
 
