@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<meta xmlns="http://exist-db.org/xquery/repo">
+    <description>movie-lookup</description>
+    <author/>
+    <author>Abhishek Sen</author>
+    <author>Bouke Nederstigt</author>
+    <author/>
+    <author/>
+    <website/>
+    <status>alpha</status>
+    <license>GNU-LGPL</license>
+    <copyright>true</copyright>
+    <type>application</type>
+    <target>movie-lookup</target>
+    <prepare>pre-install.xql</prepare>
+    <finish/>
+    <permissions user="admin" password="" group="dba" mode="rw-rw-r--"/>
+</meta>
