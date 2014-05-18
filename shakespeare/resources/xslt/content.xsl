@@ -3,11 +3,34 @@
     <xsl:import href="functions.xsl"/>
     <xsl:template match="PLAY">
         <xsl:variable name="playTitle" select="TITLE"/>
-        <p>
+        <h3>
+            <xsl:value-of select="$playTitle"/>
+        </h3>
+        <h4>
             <b>Table of Contents</b>
-        </p>
+        </h4>
         <ul>
-            <li> Personae </li>
+            <xsl:for-each select="ACT">
+                <li>
+                    <a>
+                        <xsl:attribute name="href">?query=act&amp;title=<xsl:value-of select="TITLE"/>&amp;play=<xsl:value-of select="$playTitle"/>
+                        </xsl:attribute>
+                        <xsl:value-of select="TITLE"/>
+                    </a>
+                </li>
+                <ul>
+                    <xsl:for-each select="SCENE">
+                        <li>
+                            <a>
+                                <xsl:attribute name="href">?query=scene&amp;title=<xsl:value-of select="TITLE"/>&amp;play=<xsl:value-of select="$playTitle"/>
+                                </xsl:attribute>
+                                <xsl:value-of select="TITLE"/>
+                            </a>
+                        </li>
+                    </xsl:for-each>
+                </ul>
+            </xsl:for-each>
+            <li>SPEAKERS</li>
             <xsl:for-each select="PERSONAE">
                 <ul>
                     <xsl:for-each select="PERSONA">
@@ -34,26 +57,6 @@
                                 </li>
                             </xsl:for-each>
                         </ul>
-                    </xsl:for-each>
-                </ul>
-            </xsl:for-each>
-            <xsl:for-each select="ACT">
-                <li>
-                    <a>
-                        <xsl:attribute name="href">?query=act&amp;title=<xsl:value-of select="TITLE"/>&amp;play=<xsl:value-of select="$playTitle"/>
-                        </xsl:attribute>
-                        <xsl:value-of select="TITLE"/>
-                    </a>
-                </li>
-                <ul>
-                    <xsl:for-each select="SCENE">
-                        <li>
-                            <a>
-                                <xsl:attribute name="href">?query=scene&amp;title=<xsl:value-of select="TITLE"/>&amp;play=<xsl:value-of select="$playTitle"/>
-                                </xsl:attribute>
-                                <xsl:value-of select="TITLE"/>
-                            </a>
-                        </li>
                     </xsl:for-each>
                 </ul>
             </xsl:for-each>

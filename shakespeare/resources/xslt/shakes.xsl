@@ -75,6 +75,14 @@
                 <xsl:value-of select="TITLE"/>
             </a>
         </h3>
+        <p>SPEAKERS:</p>
+        <xsl:for-each select="distinct-values(SPEECH/SPEAKER)">
+            <ul class="list-inline">
+                <li>
+                    <xsl:value-of select="."/>
+                </li>
+            </ul>
+        </xsl:for-each>
         <xsl:apply-templates select="SPEECH|STAGEDIR"/>
     </xsl:template>
     <xsl:template match="SPEECH">
