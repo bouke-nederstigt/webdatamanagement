@@ -10,6 +10,7 @@ declare namespace transform ="http://exist-db.org/xquery/transform";
  :)
 declare function app:submit($node as node(), $model as map(*), $query as xs:string?, $querytype as xs:string?) {
     (: If they don't enter anything, we throw an error prompt. :)
+    let $xsl := doc("/db/apps/movie-lookup/movie-lookup.xsl")
     let $query := lower-case($query)
     let $movie_list := collection("apps/movie-lookup/movies")/movies/movie
     return
@@ -22,44 +23,69 @@ declare function app:submit($node as node(), $model as map(*), $query as xs:stri
             switch ($querytype)
             case "title" return 
                 let $title := lower-case(normalize-space($query))
-                for $movie in $movie_list[contains(lower-case(title/text()), $title)]
-                return
-                    <div>{app:display($movie)}</div>    
+                let $movies := (
+                    for $movie in $movie_list[contains(lower-case(title/text()), $title)]
+                    return
+                        $movie    
+                )
+                return 
+                    transform:transform($movies, $xsl, ())
             
             case "keywords" return 
                 let $keywords := lower-case(normalize-space($query))
-                for $movie in $movie_list[contains(lower-case(summary/text()), $keywords)]
-                return
-                    <div>{app:display($movie)}</div> 
+                let $movies := (
+                    for $movie in $movie_list[contains(lower-case(summary/text()), $keywords)]
+                    return
+                            $movie    
+                )
+                return 
+                    transform:transform($movies, $xsl, ())
                         
             case "year" return 
                 let $year := lower-case(normalize-space($query))
-                for $movie in $movie_list[year/text() = $year]
-                return
-                    <div>{app:display($movie)}</div>
+                let $movies := (
+                    for $movie in $movie_list[year/text() = $year]
+                    return
+                        $movie
+                )
+                return 
+                    transform:transform($movies, $xsl, ())
                         
             case "director" return 
                 let $director_fname := lower-case(substring-before(normalize-space($query), ' '))
                 let $director_lname := lower-case(substring-after(normalize-space($query), ' '))
-                for $movie in $movie_list[(lower-case(director/first_name/text()) = $director_fname) and (lower-case(director/last_name/text()) = $director_lname)]     
-                return
-                    <div>{app:display($movie)}</div> 
+                let $movies := (
+                    for $movie in $movie_list[(lower-case(director/first_name/text()) = $director_fname) and (lower-case(director/last_name/text()) = $director_lname)]     
+                    return
+                        $movie
+                )
+                return 
+                    transform:transform($movies, $xsl, ())
                         
             case "actor" return 
                 let $actor_fname := lower-case(substring-before(normalize-space($query), ' '))
                 let $actor_lname := lower-case(substring-after(normalize-space($query), ' '))
+                let $movies := (
                 for $movie in $movie_list
                     for $actor in $movie/actor
                     where (lower-case($actor/first_name/text()) = $actor_fname) and (lower-case($actor/last_name/text()) = $actor_lname)      
                     return
-                        <div>{app:display($movie)}</div>  
+                        $movie
+                )
+                return 
+                    transform:transform($movies, $xsl, ())
                         
             case "genre" return 
                 let $genre := lower-case(normalize-space($query))
-                for $movie in $movie_list[contains(lower-case(genre/text()), $genre)]
-                return
-                    <div>{app:display($movie)}</div> 
-                        
+                let $movies := 
+                    (
+                        for $movie in $movie_list[contains(lower-case(genre/text()), $genre)]
+                        return
+                            $movie
+                    )
+                return 
+                    transform:transform($movies, $xsl, ())
+                    
             default return
                 let $title := lower-case(normalize-space($query))
                 let $keywords := $title
@@ -67,36 +93,16 @@ declare function app:submit($node as node(), $model as map(*), $query as xs:stri
                 let $genre := $title
                 let $director_fname := lower-case(substring-before(normalize-space($query), ' '))
                 let $director_lname := lower-case(substring-after(normalize-space($query), ' '))
-                for $movie in $movie_list[(contains(lower-case(title/text()), $title)) or (contains(lower-case(summary/text()), $keywords)) or (year/text() = $year) or ((lower-case(director/first_name/text()) = $director_fname) and (lower-case(director/last_name/text()) = $director_lname)) or (contains(lower-case(genre/text()), $genre))]
-                    return
-                        <div>{
-                            if ($movie) then
-                                app:display($movie)
-                            else 
-                            (
-                                for $movie in $movie_list
-                                    let $actor_fname := $director_fname
-                                    let $actor_lname := $director_lname
-                                    for $actor in $movie/actor
-                                    where (lower-case($actor/first_name/text()) = $actor_fname) and (lower-case($actor/last_name/text()) = $actor_lname)
-                                    return
-                                        <div>{
-                                            if ($movie) then
-                                                app:display($movie)
-                                            else
-                                                <div>{app:displayEmpty('No results found.')}</div>
-                                        }</div>     
-                            )
-                        }</div>  
+                let $movies := (
+                    for $movie in $movie_list[(year/text() = $year) or (contains(lower-case(title/text()), $title)) or ((lower-case(director/first_name/text()) = $director_fname) and (lower-case(director/last_name/text()) = $director_lname)) or (contains(lower-case(genre/text()), $genre)) or (contains(lower-case(summary/text()), $keywords))]
+                        return
+                            $movie
+                )
+                return 
+                    transform:transform($movies, $xsl, ())
         )
 };
 
 declare function app:displayEmpty($displayString as xs:string?) {
     <div class="container">{$displayString}</div>
-};
-
-declare function app:display($movies as node()) {
-    let $xsl := doc("/db/apps/movie-lookup/movie-lookup.xsl")
-    return
-        transform:transform($movies, $xsl, ())
 };
