@@ -179,7 +179,7 @@ declare function app:scene($title as xs:string, $playTitle as xs:string) {
 };
 
 (: ~
- : Function to display act
+ : Function to display character
  :)
 declare function app:character($title as xs:string, $playTitle as xs:string) {
     let $style := doc("/db/apps/shakespeare/resources/xslt/shakes.xsl")
@@ -190,11 +190,19 @@ declare function app:character($title as xs:string, $playTitle as xs:string) {
     for $play in collection("/apps/shakespeare/collection")
     where $play/PLAY/TITLE/text() = $playTitle
     return 
-        <div>
-         {for $character in $play/PLAY/ACT/SCENE/SPEECH
-         where $character/SPEAKER/text() = $actualTitle
-         return
-            transform:transform($character, $style, (<parameters><param name="playTitle" value="{$playTitle}"/><param name="characterPage" value="true" /></parameters>))
+        <div class="panel-group" id="accordion">
+         {
+            for $scene in $play/PLAY/ACT/SCENE
+            return
+                    for $character in $scene/SPEECH
+                    where $character/SPEAKER/text() = $actualTitle    
+                    return
+                        transform:transform($character, $style, (
+                        <parameters>
+                            <param name="playTitle" value="{$playTitle}"/>
+                            <param name="characterPage" value="true" />                  
+                        </parameters>))
+                  
          }
         </div>
 };
