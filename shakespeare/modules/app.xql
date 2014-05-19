@@ -12,7 +12,7 @@ declare namespace transform="http://exist-db.org/xquery/transform";
 :)
 declare function app:controller($node as node(), $model as map(*), $query as xs:string?, $title as xs:string?, $play as xs:string? ) {
     let $query := lower-case($query)
-    let $plays := collection("shakespeare")
+    let $plays := collection("/apps/shakespeare/collection")
     let $title := if(empty($title))
         then false()
         else
@@ -38,8 +38,94 @@ declare function app:controller($node as node(), $model as map(*), $query as xs:
                 for $plays in collection("/apps/shakespeare/collection")    
                 order by $plays/PLAY/TITLE/text()
                 return 
-                    <li><a href="?query=contents&amp;title={$plays/PLAY/TITLE/text()}">{$plays/PLAY/TITLE/text()}</a>{$query}</li>              
+                    <li><a href="?query=contents&amp;title={$plays/PLAY/TITLE/text()}&amp;play={$plays/PLAY/TITLE}">{$plays/PLAY/TITLE/text()}</a>{$query}</li>              
             }</ul>    
+};
+
+(:
+:Display title of current play in menu
+:)
+declare function app:title($node as node(), $model as map(*), $play as xs:string?){
+    let $play := if(empty($play))
+        then 'false'
+        else
+            xmldb:decode($play)
+    
+    return
+        if($play = 'false')
+        then
+            <a href="./index.html" class="brand">Shakespeare</a>
+        else
+            <a href="?query=contents&amp;title={$play}&amp;play={$play}" class="brand">{$play}</a>
+};
+
+(: 
+:Generate menu plays 
+:)
+declare function app:menu_plays($node as node(), $model as map(*), $play as xs:string? ){ 
+    let $play := if(empty($play))
+        then false()
+        else
+            xmldb:decode($play)
+    return      
+        <ul class="dropdown-menu">{
+            for $plays in collection("/apps/shakespeare/collection") 
+            order by $plays/PLAY/TITLE/text()
+            return
+                <li><a href="?query=contents&amp;title={$plays/PLAY/TITLE}&amp;play={$plays/PLAY/TITLE}">{$plays/PLAY/TITLE/text()}</a></li>
+        }</ul>
+};
+
+(: 
+:Generate menu acts 
+:)
+declare function app:menu_acts($node as node(), $model as map(*), $play as xs:string? ){ 
+    let $play := if(empty($play))
+        then 'false'
+        else
+            xmldb:decode($play)
+    return         
+        if($play = 'false') then
+            <ul class="dropdown-menu">Please select a play</ul>
+        else
+            <ul class="dropdown-menu">{
+                for $plays in collection("/apps/shakespeare/collection")
+                where $plays/PLAY/TITLE/text() = $play
+                return
+                    for $acts in $plays/PLAY/ACT
+                    return
+                        <li><a href="?query=act&amp;title={$acts/TITLE}&amp;play={$play}&amp;act={$acts/TITLE}">{$acts/TITLE/text()}</a></li>
+            }</ul>
+};
+
+(: 
+:Generate menu scenes 
+:)
+declare function app:menu_scenes($node as node(), $model as map(*), $play as xs:string?, $act as xs:string? ){ 
+    let $play := if(empty($play))
+        then 'false'
+        else
+            xmldb:decode($play)
+            
+    let $act := if(empty($act))
+        then 'false'
+        else
+            xmldb:decode($act)
+    return         
+        if($play = 'false' or $act = 'false') then
+            <ul class="dropdown-menu">Please select a play and act</ul>
+        else
+            <ul class="dropdown-menu">{
+                for $plays in collection("/apps/shakespeare/collection")
+                where $plays/PLAY/TITLE/text() = $play 
+                return
+                    for $acts in $plays/PLAY/ACT
+                    where $acts/TITLE/text() = $act
+                    return
+                        for $scenes in $acts/SCENE
+                        return
+                            <li><a href="?query=scene&amp;title={$scenes/TITLE}&amp;play={$play}&amp;act={$act}">{$scenes/TITLE/text()}</a></li>
+            }</ul>
 };
 
 (: ~
@@ -108,7 +194,7 @@ declare function app:character($title as xs:string, $playTitle as xs:string) {
          {for $character in $play/PLAY/ACT/SCENE/SPEECH
          where $character/SPEAKER/text() = $actualTitle
          return
-            transform:transform($character, $style, (<parameters><param name="playTitle" value="{$playTitle}"/></parameters>))
+            transform:transform($character, $style, (<parameters><param name="playTitle" value="{$playTitle}"/><param name="characterPage" value="true" /></parameters>))
          }
         </div>
 };

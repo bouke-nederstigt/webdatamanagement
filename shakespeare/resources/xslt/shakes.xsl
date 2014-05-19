@@ -1,43 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:exist="http://exist.sourceforge.net/NS/exist" version="2.0">
-   
-   <xsl:param name="playTitle" />
+    <xsl:param name="playTitle"/>
     <xsl:template match="PLAY/TITLE">
         <h1>
             <xsl:apply-templates/>
         </h1>
-    </xsl:template>
-    <xsl:template match="PLAY">
-        <div>
-            <xsl:apply-templates select="TITLE" />
-            <xsl:apply-templates select="PLAYSUBT"/>
-            <xsl:apply-templates select="FM"/>
-            <p>
-                <b>Table of Contents</b>
-            </p>
-            <ul>
-                <xsl:for-each select="PERSONAE|ACT">
-                    <li>
-                        <a href="#{generate-id()}">
-                            <xsl:value-of select="TITLE"/>
-                        </a>
-                    </li>
-                    <ul>
-                        <xsl:for-each select="SCENE">
-                            <li>
-                                <a>
-                                    <xsl:attribute name="href">?query=scene&amp;title=<xsl:value-of select="TITLE"/>&amp;play=<xsl:value-of select="$playTitle"/>
-                                    </xsl:attribute>
-                                    <xsl:value-of select="TITLE"/>
-                                </a>
-                            </li>
-                        </xsl:for-each>
-                    </ul>
-                </xsl:for-each>
-            </ul>
-            <xsl:apply-templates select="PERSONAE"/>
-            <xsl:apply-templates select="ACT"/>
-        </div>
     </xsl:template>
     <xsl:template match="FM">
         <blockquote>
@@ -62,7 +29,7 @@
         <hr/>
         <h1>
             <a>
-                <xsl:attribute name="href">?query=act&amp;title=<xsl:value-of select="TITLE"/>&amp;play=<xsl:value-of select="$playTitle"/>
+                <xsl:attribute name="href">?query=act&amp;title=<xsl:value-of select="TITLE"/>&amp;play=<xsl:value-of select="$playTitle"/>&amp;act=<xsl:value-of select="TITLE"/>
                 </xsl:attribute>
                 <xsl:value-of select="TITLE"/>
             </a>
@@ -117,8 +84,8 @@
         <br/>
     </xsl:template>
     <xsl:template match="LINE/STAGEDIR">[<b>
-        <xsl:apply-templates/>
-    </b>]</xsl:template>
+            <xsl:apply-templates/>
+        </b>]</xsl:template>
     <xsl:template match="SCENE/STAGEDIR">
         <tr>
             <td colspan="3">

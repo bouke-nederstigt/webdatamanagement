@@ -16,15 +16,22 @@
         <div class="navbar">
             <div class="navbar-inner">
                 <div class="container">
-                    <a data-template="config:app-title" class="brand" href="./index.html">App Title</a>
+                    <a data-template="app:title" class="brand">App Title</a>
                     <ul class="nav">
+                        <li>
+                            <a href="./index.html">Home</a>
+                        </li>
                         <li class="dropdown" id="about">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Home</a>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <a href="index.html">Home</a>
-                                </li>
-                            </ul>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Plays</a>
+                            <ul data-template="app:menu_plays"/>
+                        </li>
+                        <li class="dropdown" id="about">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Acts</a>
+                            <ul data-template="app:menu_acts"/>
+                        </li>
+                        <li class="dropdown" id="about">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Scenes</a>
+                            <ul data-template="app:menu_scenes"/>
                         </li>
                     </ul>
                 </div>
