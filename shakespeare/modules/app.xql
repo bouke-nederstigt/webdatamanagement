@@ -97,17 +97,19 @@ declare function app:scene($title as xs:string, $playTitle as xs:string) {
  :)
 declare function app:character($title as xs:string, $playTitle as xs:string) {
     let $style := doc("/db/apps/shakespeare/resources/xslt/shakes.xsl")
-    
+    let $actualTitle := if(string-length(fn:substring-before($title, ',')) = 0)
+                        then $title
+                        else fn:substring-before($title, ',')
+    let $actualTitle := fn:normalize-space($actualTitle)
     for $play in collection("/apps/shakespeare/collection")
     where $play/PLAY/TITLE/text() = $playTitle
     return 
         <div>
-        {for $character in $play/PLAY/ACT/SCENE/SPEECH
-        let $length := string-length($character/SPEAKER/text()) (: Fix this to make up for short use of persona name in speech :)
-        where $character/SPEAKER/text() = fn:substring($title, 1, $length)
-        return
-          $character
-        }
+         {for $character in $play/PLAY/ACT/SCENE/SPEECH
+         where $character/SPEAKER/text() = $actualTitle
+         return
+            transform:transform($character, $style, ())
+         }
         </div>
 };
 
