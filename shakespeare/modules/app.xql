@@ -69,7 +69,7 @@ declare function app:act($title as xs:string, $playTitle as xs:string) {
        {for $act in $play/PLAY/ACT      
        where $act/TITLE/text() = $title
        return
-        transform:transform($act, $style, ())
+        transform:transform($act, $style, (<parameters><param name="playTitle" value="{$playTitle}"/></parameters>))
        }
        </div>
 };
@@ -87,7 +87,7 @@ declare function app:scene($title as xs:string, $playTitle as xs:string) {
        {for $scene in $play/PLAY/ACT/SCENE      
        where $scene/TITLE/text() = $title
        return
-        transform:transform($scene, $style, ())
+        transform:transform($scene, $style, (<parameters><param name="playTitle" value="{$playTitle}"/></parameters>))
        }
        </div>
 };
@@ -108,7 +108,7 @@ declare function app:character($title as xs:string, $playTitle as xs:string) {
          {for $character in $play/PLAY/ACT/SCENE/SPEECH
          where $character/SPEAKER/text() = $actualTitle
          return
-            transform:transform($character, $style, ())
+            transform:transform($character, $style, (<parameters><param name="playTitle" value="{$playTitle}"/></parameters>))
          }
         </div>
 };

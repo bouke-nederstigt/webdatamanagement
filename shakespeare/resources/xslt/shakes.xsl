@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:exist="http://exist.sourceforge.net/NS/exist" version="2.0">
+   
+   <xsl:param name="playTitle" />
     <xsl:template match="PLAY/TITLE">
         <h1>
             <xsl:apply-templates/>
@@ -7,7 +9,7 @@
     </xsl:template>
     <xsl:template match="PLAY">
         <div>
-            <xsl:apply-templates select="TITLE"/>
+            <xsl:apply-templates select="TITLE" />
             <xsl:apply-templates select="PLAYSUBT"/>
             <xsl:apply-templates select="FM"/>
             <p>
@@ -23,7 +25,9 @@
                     <ul>
                         <xsl:for-each select="SCENE">
                             <li>
-                                <a href="#{generate-id()}">
+                                <a>
+                                    <xsl:attribute name="href">?query=scene&amp;title=<xsl:value-of select="TITLE"/>&amp;play=<xsl:value-of select="$playTitle"/>
+                                    </xsl:attribute>
                                     <xsl:value-of select="TITLE"/>
                                 </a>
                             </li>
@@ -58,8 +62,7 @@
         <hr/>
         <h1>
             <a>
-                <xsl:attribute name="name">
-                    <xsl:value-of select="generate-id()"/>
+                <xsl:attribute name="href">?query=act&amp;title=<xsl:value-of select="TITLE"/>&amp;play=<xsl:value-of select="$playTitle"/>
                 </xsl:attribute>
                 <xsl:value-of select="TITLE"/>
             </a>
@@ -69,8 +72,7 @@
     <xsl:template match="SCENE">
         <h3>
             <a>
-                <xsl:attribute name="name">
-                    <xsl:value-of select="generate-id()"/>
+                <xsl:attribute name="href">?query=scene&amp;title=<xsl:value-of select="TITLE"/>&amp;play=<xsl:value-of select="$playTitle"/>
                 </xsl:attribute>
                 <xsl:value-of select="TITLE"/>
             </a>
@@ -103,7 +105,11 @@
         </table>
     </xsl:template>
     <xsl:template match="SPEAKER">
-        <xsl:value-of select="text()"/>
+        <a>
+            <xsl:attribute name="href">?query=character&amp;title=<xsl:value-of select="text()"/>&amp;play=<xsl:value-of select="$playTitle"/>
+            </xsl:attribute>
+            <xsl:value-of select="text()"/>
+        </a>
         <br/>
     </xsl:template>
     <xsl:template match="LINE">
@@ -111,8 +117,8 @@
         <br/>
     </xsl:template>
     <xsl:template match="LINE/STAGEDIR">[<b>
-            <xsl:apply-templates/>
-        </b>]</xsl:template>
+        <xsl:apply-templates/>
+    </b>]</xsl:template>
     <xsl:template match="SCENE/STAGEDIR">
         <tr>
             <td colspan="3">
