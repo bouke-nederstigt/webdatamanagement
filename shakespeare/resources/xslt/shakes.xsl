@@ -51,7 +51,11 @@
         <xsl:for-each select="distinct-values(SPEECH/SPEAKER)">
             <ul class="list-inline">
                 <li>
-                    <xsl:value-of select="."/>
+                    <a>
+                        <xsl:attribute name="href">?query=character&amp;title=<xsl:value-of select="current()"/>&amp;play=<xsl:value-of select="$playTitle"/>
+                        </xsl:attribute>
+                        <xsl:value-of select="."/>
+                    </a>
                 </li>
             </ul>
         </xsl:for-each>

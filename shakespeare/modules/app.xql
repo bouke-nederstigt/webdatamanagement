@@ -10,7 +10,7 @@ declare namespace transform="http://exist-db.org/xquery/transform";
 (: ~
 : Controller to handle loading of items
 :)
-declare function app:controller($node as node(), $model as map(*), $query as xs:string?, $title as xs:string?, $play as xs:string? ) {
+declare function app:controller($node as node(), $model as map(*), $query as xs:string?, $title as xs:string?, $play as xs:string?, $scene as xs:string?, $act as xs:string?) {
     let $query := lower-case($query)
     let $plays := collection("/apps/shakespeare/collection")
     let $title := if(empty($title))
@@ -21,7 +21,7 @@ declare function app:controller($node as node(), $model as map(*), $query as xs:
         then false()
         else
             xmldb:decode($play)
-  
+
     return 
         switch ($query)
             case "contents" return                   
@@ -31,7 +31,12 @@ declare function app:controller($node as node(), $model as map(*), $query as xs:
             case "scene" return                   
                     <div>{app:scene($title, $play)}</div>
             case "character" return                   
-                    <div>{app:character($title, $play)}</div>        
+                    <div>{
+                        if (empty($scene) and empty($act)) then
+                            app:character($title, $play)
+                        else
+                            app:displayCharacterLines($title, $scene, $act, $play)
+                    }</div>
           default return
             <ul>{
                 let $style := doc("/db/apps/shakespeare/resources/shakes.xsl")            
@@ -86,7 +91,7 @@ declare function app:menu_acts($node as node(), $model as map(*), $play as xs:st
             xmldb:decode($play)
     return         
         if($play = 'false') then
-            <ul class="dropdown-menu">Please select a play</ul>
+            <ul class="dropdown-menu">Please select a play.</ul>
         else
             <ul class="dropdown-menu">{
                 for $plays in collection("/apps/shakespeare/collection")
@@ -106,14 +111,13 @@ declare function app:menu_scenes($node as node(), $model as map(*), $play as xs:
         then 'false'
         else
             xmldb:decode($play)
-            
     let $act := if(empty($act))
         then 'false'
         else
             xmldb:decode($act)
     return         
         if($play = 'false' or $act = 'false') then
-            <ul class="dropdown-menu">Please select a play and act</ul>
+            <ul class="dropdown-menu">Please select a play and an act.</ul>
         else
             <ul class="dropdown-menu">{
                 for $plays in collection("/apps/shakespeare/collection")
@@ -192,20 +196,36 @@ declare function app:character($title as xs:string, $playTitle as xs:string) {
     return 
         <div class="panel-group" id="accordion">
          {
-            for $scene in $play/PLAY/ACT/SCENE
-            return
-                    for $character in $scene/SPEECH
-                    where $character/SPEAKER/text() = $actualTitle    
+            let $characterParts := (
+            <ul> {
+            for $act in $play/PLAY/ACT
+                for $scene in $act/SCENE
+                    for $character in distinct-values($scene/SPEECH/SPEAKER)
+                    where $character = $title
                     return
-                        transform:transform($character, $style, (
-                        <parameters>
-                            <param name="playTitle" value="{$playTitle}"/>
-                            <param name="characterPage" value="true" />                  
-                        </parameters>))
-                  
+                        <li><a href="?query=character&amp;title={$character}&amp;scene={$scene/TITLE}&amp;act={$act/TITLE/text()}&amp;play={$play/PLAY/TITLE}">
+                                {$act/TITLE/text()}, {$scene/TITLE/text()}</a></li>
+            } </ul>)
+            return
+                <div>
+                    {$title}
+                    {$characterParts}
+                </div>
+                                
          }
         </div>
 };
 
-
-
+(: ~
+ : Function to display character's lines
+ :)
+declare function app:displayCharacterLines($title as xs:string, $scene as xs:string, $act as xs:string, $playTitle as xs:string) {
+    let $style := doc("/db/apps/shakespeare/resources/xslt/shakes.xsl")
+    let $speech := (
+        for $speechInfo in collection("/apps/shakespeare/collection")/PLAY[TITLE/text() = $playTitle]/ACT[TITLE/text() = $act]/SCENE[TITLE/text() = $scene]/SPEECH[SPEAKER/text() = $title]
+        return 
+            $speechInfo
+    )
+    return
+        transform:transform($speech, $style, (<parameters><param name="playTitle" value="{$playTitle}"/></parameters>))
+};
