@@ -186,7 +186,6 @@ declare function app:scene($title as xs:string, $playTitle as xs:string) {
  : Function to display character
  :)
 declare function app:character($title as xs:string, $playTitle as xs:string) {
-    let $style := doc("/db/apps/shakespeare/resources/xslt/shakes.xsl")
     let $actualTitle := if(string-length(fn:substring-before($title, ',')) = 0)
                         then $title
                         else fn:substring-before($title, ',')
@@ -201,7 +200,7 @@ declare function app:character($title as xs:string, $playTitle as xs:string) {
             for $act in $play/PLAY/ACT
                 for $scene in $act/SCENE
                     for $character in distinct-values($scene/SPEECH/SPEAKER)
-                    where $character = $title
+                    where $character = $actualTitle
                     return
                         <li><a href="?query=character&amp;title={$character}&amp;scene={$scene/TITLE}&amp;act={$act/TITLE/text()}&amp;play={$play/PLAY/TITLE}">
                                 {$act/TITLE/text()}, {$scene/TITLE/text()}</a></li>
