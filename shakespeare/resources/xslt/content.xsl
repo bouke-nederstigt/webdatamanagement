@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:exist="http://exist.sourceforge.net/NS/exist" xmlns:shakespeare="http://localhost:8080/exist/apps/shakespeare" version="2.0">
-    <xsl:import href="functions.xsl"/>
     <xsl:template match="PLAY">
         <xsl:variable name="playTitle" select="TITLE"/>
         <h3>

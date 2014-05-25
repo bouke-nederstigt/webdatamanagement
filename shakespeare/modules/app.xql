@@ -195,16 +195,27 @@ declare function app:character($title as xs:string, $playTitle as xs:string) {
     return 
         <div class="panel-group" id="accordion">
          {
-            let $characterParts := (
-            <ul> {
-            for $act in $play/PLAY/ACT
-                for $scene in $act/SCENE
-                    for $character in distinct-values($scene/SPEECH/SPEAKER)
-                    where $character = $actualTitle
-                    return
-                        <li><a href="?query=character&amp;title={$character}&amp;scene={$scene/TITLE}&amp;act={$act/TITLE/text()}&amp;play={$play/PLAY/TITLE}">
-                                {$act/TITLE/text()}, {$scene/TITLE/text()}</a></li>
-            } </ul>)
+            let $characterParts := (          
+                for $act in $play/PLAY/ACT
+                    for $scene in $act/SCENE
+                        for $character in distinct-values($scene/SPEECH/SPEAKER)
+                        where $character = $actualTitle
+                        return
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                  <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#{fn:replace(fn:concat($act/TITLE/text(), $scene/TITLE), "[^a-zA-Z0-9]+", '')}">
+                                      {$act/TITLE/text()}, {$scene/TITLE/text()}
+                                    </a>
+                                  </h4>
+                                </div>
+                                <div id="{fn:replace(fn:concat($act/TITLE/text(), $scene/TITLE), "[^a-zA-Z0-9]+", '')}" class="panel-collapse collapse">
+                                  <div class="panel-body">
+                                    {app:displayCharacterLines($character, $scene/TITLE, $act/TITLE/text(), $play/PLAY/TITLE)}
+                                  </div>
+                                </div>
+                              </div>
+            )
             return
                 <div>
                     {$title}

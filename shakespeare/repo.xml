@@ -11,5 +11,5 @@
     <target>shakespeare</target>
     <prepare>pre-install.xql</prepare>
     <finish/>
-    <permissions user="admin" password="admin" group="admin" mode="rw-rw-r--"/>
+    <deployed>2014-05-25T13:05:05.871+02:00</deployed>
 </meta>
