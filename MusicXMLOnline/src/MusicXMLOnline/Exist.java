@@ -35,7 +35,7 @@ public class Exist {
 
         Collection col = null;
         try {
-            col = DatabaseManager.getCollection(URI + args[0]);
+            col = DatabaseManager.getCollection(URI + args[0], "admin", "admin");
             XPathQueryService xpqs = (XPathQueryService) col.getService("XPathQueryService", "1.0");
             xpqs.setProperty("indent", "yes");
             ResourceSet result = xpqs.query(args[1]);
@@ -90,10 +90,12 @@ public class Exist {
         Collection col = null;
         XMLResource res = null;
         try {
-            col = getOrCreateCollection(args[0]);
-
+            col = getOrCreateCollection("/" + args[0]);
+            if(col == null){
+                return "unable to load connection: " + URI + "/" + args[0];
+            }
             // create new XMLResource; an id will be assigned to the new resource
-            res = (XMLResource) col.createResource(null, "XMLResource");
+            res = (XMLResource) col.createResource(args[2], "XMLResource");
             File f = new File(args[1]);
             if (!f.canRead()) {
                 return "cannot read file " + args[1];
@@ -123,32 +125,29 @@ public class Exist {
         }
     }
 
-    private static Collection getOrCreateCollection(String collectionUri) throws
-            XMLDBException {
+    private static Collection getOrCreateCollection(String collectionUri) throws XMLDBException {
         return getOrCreateCollection(collectionUri, 0);
     }
 
-    private static Collection getOrCreateCollection(String collectionUri, int
-            pathSegmentOffset) throws XMLDBException {
+    private static Collection getOrCreateCollection(String collectionUri, int  pathSegmentOffset) throws XMLDBException {
 
-        Collection col = DatabaseManager.getCollection(URI + collectionUri);
-        if (col == null) {
-            if (collectionUri.startsWith("/")) {
+        Collection col = DatabaseManager.getCollection(URI + collectionUri, "admin", "admin");
+        if(col == null) {
+            if(collectionUri.startsWith("/")) {
                 collectionUri = collectionUri.substring(1);
             }
             String pathSegments[] = collectionUri.split("/");
-            if (pathSegments.length > 0) {
+            if(pathSegments.length > 0) {
                 StringBuilder path = new StringBuilder();
-                for (int i = 0; i <= pathSegmentOffset; i++) {
+                for(int i = 0; i <= pathSegmentOffset; i++) {
                     path.append("/" + pathSegments[i]);
                 }
-                Collection start = DatabaseManager.getCollection(URI + path);
-                if (start == null) {
+                Collection start = DatabaseManager.getCollection(URI + path, "admin", "admin");
+                if(start == null) {
                     //collection does not exist, so create
                     String parentPath = path.substring(0, path.lastIndexOf("/"
                     ));
-                    Collection parent = DatabaseManager.getCollection(URI +
-                            parentPath);
+                    Collection parent = DatabaseManager.getCollection(URI + parentPath, "admin", "admin");
                     CollectionManagementService mgt = (CollectionManagementService) parent.getService("CollectionManagementService", "1.0");
                     col = mgt.createCollection(pathSegments[pathSegmentOffset]);
                     col.close();
