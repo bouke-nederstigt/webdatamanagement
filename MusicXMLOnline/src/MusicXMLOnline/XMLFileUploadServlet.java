@@ -24,7 +24,6 @@ public class XMLFileUploadServlet extends javax.servlet.http.HttpServlet {
         boolean isMultipart = ServletFileUpload.isMultipartContent(request);
         java.io.PrintWriter pw = response.getWriter();
 
-
         if (isMultipart) {
             try {
                 FileItemFactory factory = new DiskFileItemFactory();
@@ -49,10 +48,9 @@ public class XMLFileUploadServlet extends javax.servlet.http.HttpServlet {
 
                 //add document to eXist db
                 Exist exist = new Exist();
-                String[] args = new String[3];
-                args[0] = "db/musicxmlonline";
-                args[1] = destFilePath;
-                args[2] = fileName;
+                String[] args = new String[2];
+                args[0] = destFilePath;
+                args[1] = fileName;
                 request.setAttribute("message", exist.addDocument(args));
 
                 //immediately create pdf and MIDI files

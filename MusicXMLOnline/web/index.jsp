@@ -14,19 +14,20 @@
 <%@include file="header.jsp" %>
 
 <div class="documents">
-    <% List documents = MusicXmlOnline.getDocuments(); %>
+    <%
+        List documents = MusicXmlOnline.getDocuments();
+        pageContext.setAttribute("documents", documents);
+    %>
     <table class="table">
-        <th>
-            <td>Movement</td>
-            <td>PDF</td>
-            <td>Music</td>
-        </th>
-        <%= documents %>
-        <c:forEach items="${documents}" var="title">
+        <th>Movement</th>
+        <th>PDF</th>
+        <th>Music</th>
+
+        <c:forEach items="${pageScope.documents}" var="doc">
             <tr>
-                <td><c:out value="${title}" /></td>
-                <td>link to pdf</td>
-                <td>Link to midi</td>
+                <td><%= MusicXmlOnline.getDocTitle((String) pageContext.getAttribute("doc")) %></td>
+                <td><a href="<%= request.getContextPath() %>/upload/<c:out value="${doc}" />.pdf"><c:out value="${doc}"/></a></td>
+                <td><a href="/player.jsp?doc=<c:out value="${doc}" />">Play music</a></td>
             </tr>
         </c:forEach>
     </table>
