@@ -17,6 +17,8 @@ import java.util.List;
 public class Exist {
 
     private static String URI = "xmldb:exist://localhost:8899/exist/xmlrpc/db/musicxmlonline";
+    private static String user = "admin";
+    private static String password = "admin";
 
     /**
      * @param xQuery Should be the XQuery to execute
@@ -33,7 +35,7 @@ public class Exist {
 
         Collection col = null;
         try {
-            col = DatabaseManager.getCollection(URI, "admin", "admin");
+            col = DatabaseManager.getCollection(URI, user, password);
             XPathQueryService xpqs = (XPathQueryService) col.getService("XPathQueryService", "1.0");
             xpqs.setProperty("indent", "yes");
             ResourceSet result = xpqs.query(xQuery);
@@ -88,7 +90,7 @@ public class Exist {
         Collection col = null;
         XMLResource res = null;
         try {
-            col = DatabaseManager.getCollection(URI, "admin", "admin");
+            col = DatabaseManager.getCollection(URI, user, password);
             if(col == null){
                 return "unable to load connection: " + URI;
             }

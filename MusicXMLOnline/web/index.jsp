@@ -14,23 +14,35 @@
 <%@include file="header.jsp" %>
 
 <div class="documents">
-    <%
-        List documents = MusicXmlOnline.getDocuments();
-        pageContext.setAttribute("documents", documents);
-    %>
-    <table class="table">
-        <th>Movement</th>
-        <th>PDF</th>
-        <th>Music</th>
 
-        <c:forEach items="${pageScope.documents}" var="doc">
-            <tr>
-                <td><%= MusicXmlOnline.getDocTitle((String) pageContext.getAttribute("doc")) %></td>
-                <td><a href="<%= request.getContextPath() %>/upload/<c:out value="${doc}" />.pdf"><c:out value="${doc}"/></a></td>
-                <td><a href="/player.jsp?doc=<c:out value="${doc}" />">Play music</a></td>
-            </tr>
-        </c:forEach>
-    </table>
+    <%
+
+        if(request.getParameter("searchInput") != null){
+            List documents = MusicXmlOnline.searchLyrics(request.getParameter("searchInput"));
+            pageContext.setAttribute("documents", documents);
+        }else{
+            List documents = MusicXmlOnline.getDocuments();
+            pageContext.setAttribute("documents", documents);
+        }
+
+    %>
+    <% if(pageContext.getAttribute("documents") != null){ %>
+        <table class="table">
+            <th>Movement</th>
+            <th>PDF</th>
+            <th>Music</th>
+
+            <c:forEach items="${pageScope.documents}" var="doc">
+                <tr>
+                    <td><%= MusicXmlOnline.getDocTitle((String) pageContext.getAttribute("doc")) %></td>
+                    <td><a href="<%= request.getContextPath() %>/upload/<c:out value="${doc}" />.pdf"><c:out value="${doc}"/></a></td>
+                    <td><a href="/player.jsp?doc=<c:out value="${doc}" />">Play music</a></td>
+                </tr>
+            </c:forEach>
+        </table>
+    <% }else{ %>
+        <p>Your query didn't return any results.</p>
+    <% } %>
 </div>
 
 </div><!-- Eof container -->

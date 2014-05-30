@@ -14,7 +14,7 @@
 <% String doc = request.getParameter("doc"); %>
 
 <div class="player">
-
+    <embed src="<%= request.getContextPath() %>/upload/<%= doc%>.mid" width="200" height="60" autoStart="true" />
 </div>
 
 <div class="lyrics">
