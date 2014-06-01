@@ -1,9 +1,10 @@
 \documentclass[xPath&xQuery.tex]{subfiles}
 
-
+\newpage
 \begin{document}
 
 \section{XPATH and XQUERY Experiment Results}
+This sections lists the XPATH and XQUERY commands execute to complete the exercises from Chapter 5 of the Web Data Management textbook. The output generated from these commands is shown in the corresponding Github directories. The commands were tested using the \textit{movies.xml} XML database provided in the textbook. 
 
 \subsection{XPATH Query Output}
 
@@ -41,7 +42,7 @@
   \item[What is the last movie of the document?] \hfill \\
   /movies/movie[last()]
   
-  \item[Title of the film that immediatly precedes Marie Antoinette in the document?] \hfill \\
+  \item[Title of the film that immediatly precedes Marie Antoinette in the document?] \hfill \\ 
   /movies/movie[title="Marie Antoinette"]/preceding-sibling::*[1]/title/text()
   
   \item[Get the movies whose title contains a "V"] \hfill \\
@@ -213,5 +214,4 @@
 	}</results>
   \end{verbatim}
 \end{description} 
-
 \end{document}

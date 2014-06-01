@@ -1,10 +1,15 @@
 \select@language {english}
-\contentsline {section}{\numberline {1}Introduction}{2}
-\contentsline {section}{\numberline {2}XPATH and XQUERY Experiment Results}{2}
-\contentsline {subsection}{\numberline {2.1}XPATH Query Output}{2}
-\contentsline {subsection}{\numberline {2.2}XQUERY Output}{3}
-\contentsline {section}{\numberline {3}Movie Application}{7}
-\contentsline {subsection}{\numberline {3.1}Search Criteria}{7}
-\contentsline {subsection}{\numberline {3.2}Selecting Movie From Returned Results}{8}
-\contentsline {section}{\numberline {4}Shakespeare Application}{8}
-\contentsline {subsection}{\numberline {4.1}Architecture}{8}
+\contentsline {section}{\numberline {1}Introduction}{3}
+\contentsline {section}{\numberline {2}XPATH and XQUERY Experiment Results}{4}
+\contentsline {subsection}{\numberline {2.1}XPATH Query Output}{4}
+\contentsline {subsection}{\numberline {2.2}XQUERY Output}{5}
+\contentsline {section}{\numberline {3}Movie Application}{9}
+\contentsline {subsection}{\numberline {3.1}Search Criteria}{9}
+\contentsline {subsection}{\numberline {3.2}Selecting Movie From Returned Results}{10}
+\contentsline {section}{\numberline {4}Shakespeare Application}{11}
+\contentsline {subsection}{\numberline {4.1}Architecture}{11}
+\contentsline {subsection}{\numberline {4.2}Character Lines Display}{12}
+\contentsline {section}{\numberline {5}MusicXML Online Application}{14}
+\contentsline {subsection}{\numberline {5.1}Architecture}{14}
+\contentsline {subsection}{\numberline {5.2}Results}{14}
+\contentsline {section}{\numberline {6}Future Improvements to MusicXML Online Application}{19}

@@ -1,24 +1,22 @@
 \documentclass[MoviesApp.tex]{subfiles}
 
-
 \begin{document}
 
 \section{Movie Application}
 
-For this part of the project we were asked to implement a simple movie application lookup from an existing movie XML database. Figure \ref{fig:movieapp} below shows a screenshot of the movie application running on the eXist environment. The application was written in the eXist IDE environment and all the code for this application can be found on GitHub link.
+For this part of the project we were asked to implement a simple movie lookup application from an XML database. Figure \ref{fig:movieapp} below shows a screenshot of the movie application running on the eXist environment on the local machine. The application was written in the eXist IDE environment and all the code for this application can be found on GitHub link.
 
-\begin{figure} [H]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=1\textwidth]{./Figures/MovieApp.png}
-	\caption{Screenshot of Movie Application}
+	\caption{Movie Application}
 	\label{fig:movieapp}
 \end{figure}
 
 \subsection{Search Criteria}
-The search bar for the sample application allows users to search movies with the following criteria:
+The search bar allows users to search movies with the following options:
 
 \begin{itemize}
-\item All
 \item Title
 \item Keywords
 \item Year
@@ -28,7 +26,7 @@ The search bar for the sample application allows users to search movies with the
 \end{itemize}
 
 \subsection{Selecting Movie From Returned Results}
-If a matching movie(s) is found, a list is returned. More details about the movie can be found if the user clicks on the movie as shown in Figure \ref{fig:movieappselected}.
+If matching movies are found, a list is returned showing the movie title and release year. More details about the movie can be found by clicking on the movie title as shown in Figure \ref{fig:movieappselected}.
 
 \begin{figure} [H]
 	\centering
