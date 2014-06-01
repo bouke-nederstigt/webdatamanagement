@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="header.jsp" %>
 
-<h1>Upload a music xml file</h1>
+<h1>Upload a music xml file (.xml)</h1>
 
 <form method="post" action="uploadServlet" enctype="multipart/form-data">
     <div class="input-group">

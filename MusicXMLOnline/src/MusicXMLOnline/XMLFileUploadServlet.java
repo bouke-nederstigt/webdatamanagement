@@ -55,14 +55,20 @@ public class XMLFileUploadServlet extends javax.servlet.http.HttpServlet {
 
                 //immediately create pdf and MIDI files
                 String ly = this.xmlToLy(destFilePath, destFilePath.substring(0, destFilePath.length() - 4) + ".ly");
-                if(ly == null){
-                    request.setAttribute("pathToLy", destFilePath.substring(0, destFilePath.length() - 4) + ".ly");
+
+                if (ly == null) {
+                    //request.setAttribute("pathToLy", destFilePath.substring(0, destFilePath.length() - 4) + ".ly");
+                    //request.setAttribute("pathToLy", ly);
+                    request.setAttribute("pathToLy", "successfully created lilypond file");
+                } else {
+                    request.setAttribute("pathToLy", "Something went wrong trying to create the lilypond file. " + ly);
                 }
 
-
                 String pdfMidi = this.createPdfMidi(destFilePath.substring(0, destFilePath.length() - 4) + ".ly", uploadPath);
-                if(pdfMidi == null){
+                if (pdfMidi == null) {
                     request.setAttribute("createdOutput", "Created PDF and Midi files");
+                } else {
+                    request.setAttribute("createdOutput", "Something went wrong trying to create the PDF and MIDI files. " + pdfMidi);
                 }
 
             } catch (Exception e) {
@@ -80,11 +86,14 @@ public class XMLFileUploadServlet extends javax.servlet.http.HttpServlet {
      * @return null on success
      */
     public String xmlToLy(String pathToXml, String outputPath) throws IOException {
-        List<String> result = this.executeCmd("musicxml2ly --output=" + outputPath + " -m " + pathToXml);
+        List<String> result = new ArrayList<String>();
+        result = this.executeCmd("musicxml2ly --output=" + outputPath + " -m \"" + pathToXml + "\"");
+
         if (!result.isEmpty()) {
             return result.get(0);
+        } else {
+            return null;
         }
-        return null;
     }
 
     /**
@@ -93,17 +102,19 @@ public class XMLFileUploadServlet extends javax.servlet.http.HttpServlet {
      * @return null on success
      */
     public String createPdfMidi(String pathToLy, String outputPath) throws IOException {
-        List<String> result = this.executeCmd("lilypond --output=" + outputPath + " " + pathToLy);
+        List<String> result = this.executeCmd("lilypond --output=\"" + outputPath + "\" \"" + pathToLy + "\"");
         if (!result.isEmpty()) {
             return result.get(0);
+        } else {
+            return null;
         }
-        return null;
     }
 
     /**
      * Execute cmd line command
      *
      * @param cmd that needs to bee executed
+     * @return null if successful
      */
     private List<String> executeCmd(String cmd) throws IOException {
         try {
@@ -121,12 +132,16 @@ public class XMLFileUploadServlet extends javax.servlet.http.HttpServlet {
 
             int exitVal = pr.waitFor();
             if (exitVal != 0) {
-                returnValue.add("Exited with error code " + exitVal);
+                //returnValue.add("Exited with error code " + exitVal);
+                returnValue.add(0, "cmd /c " + cmd);
+                return returnValue;
+            } else {
+                List<String> emptyReturn = new ArrayList<String>();
+                return emptyReturn;
             }
+            //returnValue.add(0, "cmd /c " + cmd);
             //  List<String> returnValue = new ArrayList<String>();
             //  returnValue.add("cmd /c " + cmd);
-            return returnValue;
-
         } catch (Exception e) {
             System.out.println(e.toString());
             e.printStackTrace();

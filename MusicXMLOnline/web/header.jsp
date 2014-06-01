@@ -43,9 +43,9 @@
             <ul class="nav navbar-nav">
                 <li class="active"><a href="upload.jsp">Upload</a></li>
             </ul>
-            <form action="/index.jsp" method="post" class="navbar-form navbar-left" role="search">
+            <form action="<%= request.getContextPath() %>/index.jsp" method="post" class="navbar-form navbar-left" role="search">
                 <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Search music (lyrics and title)" name="searchInput">
+                    <input type="text" class="form-control" placeholder="Search title or lyrics" name="searchInput">
                 </div>
                 <button type="submit" class="btn btn-default">Submit</button>
             </form>

@@ -11,8 +11,8 @@
 
 <div class="message">
     <div class="message">
-        <%= request.getAttribute("message") %>
-        <%= request.getAttribute("pathToLy")%>
+        <%= request.getAttribute("message") %><br />
+        <%= request.getAttribute("pathToLy")%><br/>
         <%= request.getAttribute("createdOutput")%>
     </div>
 </div>

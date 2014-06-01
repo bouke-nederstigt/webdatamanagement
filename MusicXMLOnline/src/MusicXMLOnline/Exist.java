@@ -20,7 +20,7 @@ public class Exist {
     private static String user = "admin";
     private static String password = "admin";
 
-    /**
+    /**ÐÐÐÐÐ
      * @param xQuery Should be the XQuery to execute
      */
     public List<String> query(String xQuery) throws Exception {

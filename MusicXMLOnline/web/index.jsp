@@ -36,7 +36,7 @@
                 <tr>
                     <td><%= MusicXmlOnline.getDocTitle((String) pageContext.getAttribute("doc")) %></td>
                     <td><a href="<%= request.getContextPath() %>/upload/<c:out value="${doc}" />.pdf"><c:out value="${doc}"/></a></td>
-                    <td><a href="/player.jsp?doc=<c:out value="${doc}" />">Play music</a></td>
+                    <td><a href="<%= request.getContextPath() %>/player.jsp?doc=<c:out value="${doc}" />">Play music</a></td>
                 </tr>
             </c:forEach>
         </table>
