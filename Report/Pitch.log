@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  1 JUN 2014 22:17
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  1 JUN 2014 22:38
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -500,11 +500,7 @@ Package: titlesec 2011/12/15 v2.10.0 Sectioning titles
 LaTeX Warning: Unused global option(s):
     [pitch].
 
-(./Pitch.aux
-
-LaTeX Warning: Label `fig:musicpdf' multiply defined.
-
-)
+(./Pitch.aux)
 \openout1 = `Pitch.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 41.
@@ -519,7 +515,8 @@ LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 41.
 LaTeX Font Info:    ... okay on input line 41.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 41.
 LaTeX Font Info:    ... okay on input line 41.
- (/usr/local/texlive/2013/texmf-dist/tex/context/base/supp-pdf.mkii
+
+(/usr/local/texlive/2013/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count121
 \scratchdimen=\dimen122
@@ -713,89 +710,89 @@ File: ./Figures/MovieAppSelected.png Graphic file (type png)
 <use ./Figures/MovieAppSelected.png>
 Package pdftex.def Info: ./Figures/MovieAppSelected.png used on input line 33.
 (pdftex.def)             Requested size: 469.75502pt x 388.71133pt.
-) (./Shakespeare.tex [10 <./Figures/MovieAppSelected.png>]
-<./Figures/ShakespeareMain.png, id=47, 1020.81375pt x 245.91875pt>
+ [10 <./Figures/MovieAppSelected.png>])
+(./Shakespeare.tex [11]
+<./Figures/ShakespeareMain.png, id=50, 1020.81375pt x 245.91875pt>
 File: ./Figures/ShakespeareMain.png Graphic file (type png)
 
 <use ./Figures/ShakespeareMain.png>
 Package pdftex.def Info: ./Figures/ShakespeareMain.png used on input line 12.
 (pdftex.def)             Requested size: 469.75502pt x 113.16902pt.
-
-<./Figures/MacbethTOC.png, id=48, 850.17625pt x 862.22125pt>
+ [12 <./Figures/ShakespeareMain.png>]
+<./Figures/MacbethTOC.png, id=55, 850.17625pt x 862.22125pt>
 File: ./Figures/MacbethTOC.png Graphic file (type png)
 
 <use ./Figures/MacbethTOC.png>
-Package pdftex.def Info: ./Figures/MacbethTOC.png used on input line 37.
+Package pdftex.def Info: ./Figures/MacbethTOC.png used on input line 39.
 (pdftex.def)             Requested size: 469.75502pt x 476.42027pt.
- [11 <./Figures/ShakespeareMain.png>]
-<./Figures/MacbethCharacterSceneDetails.png, id=52, 773.89125pt x 863.225pt>
+ [13 <./Figures/MacbethTOC.png>]
+<./Figures/MacbethCharacterSceneDetails.png, id=59, 773.89125pt x 863.225pt>
 File: ./Figures/MacbethCharacterSceneDetails.png Graphic file (type png)
 
 <use ./Figures/MacbethCharacterSceneDetails.png>
 Package pdftex.def Info: ./Figures/MacbethCharacterSceneDetails.png used on inp
-ut line 47.
+ut line 49.
 (pdftex.def)             Requested size: 469.75502pt x 523.98483pt.
- [12 <./Figures/MacbethTOC.png>]) (./MusicXML.tex [13 <./Figures/MacbethCharact
-erSceneDetails.png>]
-<./Figures/MusicXMLOnline-index.png, id=60, 1445.4pt x 813.0375pt>
+ [14]) (./MusicXML.tex [15 <./Figures/MacbethCharacterSceneDetails.png>]
+<./Figures/MusicXMLOnline-index.png, id=66, 1445.4pt x 813.0375pt>
 File: ./Figures/MusicXMLOnline-index.png Graphic file (type png)
 
 <use ./Figures/MusicXMLOnline-index.png>
 Package pdftex.def Info: ./Figures/MusicXMLOnline-index.png used on input line 
 31.
 (pdftex.def)             Requested size: 469.75502pt x 264.23405pt.
- [14]
-<./Figures/MusicXMLOnline-pdf.png, id=64, 1445.4pt x 813.0375pt>
+ [16]
+<./Figures/MusicXMLOnline-pdf.png, id=70, 1445.4pt x 813.0375pt>
 File: ./Figures/MusicXMLOnline-pdf.png Graphic file (type png)
 
 <use ./Figures/MusicXMLOnline-pdf.png>
 Package pdftex.def Info: ./Figures/MusicXMLOnline-pdf.png used on input line 38
 .
 (pdftex.def)             Requested size: 469.75502pt x 264.23405pt.
- [15 <./Figures/MusicXMLOnline-index.png>] <./Figures/MusicXMLOnline-player.png
-, id=68, 1445.4pt x 813.0375pt>
+ [17 <./Figures/MusicXMLOnline-index.png>] <./Figures/MusicXMLOnline-player.png
+, id=74, 1445.4pt x 813.0375pt>
 File: ./Figures/MusicXMLOnline-player.png Graphic file (type png)
 
 <use ./Figures/MusicXMLOnline-player.png>
 Package pdftex.def Info: ./Figures/MusicXMLOnline-player.png used on input line
  50.
 (pdftex.def)             Requested size: 469.75502pt x 264.23405pt.
- [16 <./Figures/MusicXMLOnline-pdf.png>]
-File: ./Figures/MusicXMLOnline-pdf.png Graphic file (type png)
- <use ./Figures/MusicXMLOnline-pdf.png>
-Package pdftex.def Info: ./Figures/MusicXMLOnline-pdf.png used on input line 59
-.
+ [18 <./Figures/MusicXMLOnline-pdf.png>] <./Figures/MusicXMLOnline-search.png, 
+id=79, 1445.4pt x 813.0375pt>
+File: ./Figures/MusicXMLOnline-search.png Graphic file (type png)
+
+<use ./Figures/MusicXMLOnline-search.png>
+Package pdftex.def Info: ./Figures/MusicXMLOnline-search.png used on input line
+ 59.
 (pdftex.def)             Requested size: 469.75502pt x 264.23405pt.
- [17 <./Figures/MusicXMLOnline-player.png>]) (./Future.tex [18])
+ [19 <./Figures/MusicXMLOnline-player.png>]) (./Future.tex [20 <./Figures/Music
+XMLOnline-search.png>])
 
 Package caption Warning: Unused \captionsetup[sub] on input line 15.
 See the caption package documentation for explanation.
 
-[19] (./Pitch.aux)
-
-LaTeX Warning: There were multiply-defined labels.
-
- ) 
+[21] (./Pitch.aux) ) 
 Here is how much of TeX's memory you used:
- 5026 strings out of 493315
- 73885 string characters out of 6137904
- 157740 words of memory out of 5000000
- 8335 multiletter control sequences out of 15000+600000
+ 5032 strings out of 493315
+ 74084 string characters out of 6137904
+ 157710 words of memory out of 5000000
+ 8340 multiletter control sequences out of 15000+600000
  11146 words of font info for 39 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
  42i,7n,40p,910b,421s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb
-></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb
-></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><
-/usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></u
-sr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr
-/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/
-local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/l
-ocal/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on Pitch.pdf (20 pages, 1152403 bytes).
+</usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsf
+onts/cm/cmbx12.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfo
+nts/cm/cmcsc10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfo
+nts/cm/cmr10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfont
+s/cm/cmr12.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/
+cm/cmr17.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm
+/cmsy10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/
+cmti12.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/c
+mtt12.pfb>
+Output written on Pitch.pdf (22 pages, 1292473 bytes).
 PDF statistics:
- 109 PDF objects out of 1000 (max. 8388607)
- 70 compressed objects within 1 object stream
+ 116 PDF objects out of 1000 (max. 8388607)
+ 74 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 41 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 46 words of extra memory for PDF output out of 10000 (max. 10000000)
 

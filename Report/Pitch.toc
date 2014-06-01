@@ -6,10 +6,10 @@
 \contentsline {section}{\numberline {3}Movie Application}{9}
 \contentsline {subsection}{\numberline {3.1}Search Criteria}{9}
 \contentsline {subsection}{\numberline {3.2}Selecting Movie From Returned Results}{10}
-\contentsline {section}{\numberline {4}Shakespeare Application}{11}
-\contentsline {subsection}{\numberline {4.1}Architecture}{11}
-\contentsline {subsection}{\numberline {4.2}Character Lines Display}{12}
-\contentsline {section}{\numberline {5}MusicXML Online Application}{14}
-\contentsline {subsection}{\numberline {5.1}Architecture}{14}
-\contentsline {subsection}{\numberline {5.2}Results}{14}
-\contentsline {section}{\numberline {6}Future Improvements to MusicXML Online Application}{19}
+\contentsline {section}{\numberline {4}Shakespeare Application}{12}
+\contentsline {subsection}{\numberline {4.1}Architecture}{12}
+\contentsline {subsection}{\numberline {4.2}Character Lines Display}{14}
+\contentsline {section}{\numberline {5}MusicXML Online Application}{16}
+\contentsline {subsection}{\numberline {5.1}Architecture}{16}
+\contentsline {subsection}{\numberline {5.2}Results}{16}
+\contentsline {section}{\numberline {6}Future Improvements to MusicXML Online Application}{21}
