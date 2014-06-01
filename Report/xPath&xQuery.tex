@@ -1,0 +1,217 @@
+\documentclass[xPath&xQuery.tex]{subfiles}
+
+
+\begin{document}
+
+\section{XPATH and XQUERY Experiment Results}
+
+\subsection{XPATH Query Output}
+
+\begin{description}
+  \item[Title] \hfill \\
+  /movies//title
+  
+  \item[All movie titles] \hfill \\
+  /movies//title/text()
+  
+  \item[Title of the movies published after 2000] \hfill \\
+  /movies/movie[year>2000]/title/text()
+  
+  \item[Summary of "Spider-man"] \hfill \\
+  /movies/movie[title="Spider-Man"]/summary/text()
+  
+  \item[Who is the director of Heat?] \hfill \\
+  concat(/movies/movie[title="Heat"]/director/firstname/text()
+  
+  \item[Title of the movies featuring Kirsten Dunst] \hfill \\
+  /movies/movie[actor/firstname="Kirsten" and actor/lastname="Dunst"]/title/text()
+  
+  \item[Which movies have a summary?] \hfill \\
+  /movies/movie[summary]/title/text()
+  
+  \item[Which movies do not have a summary?] \hfill \\
+  /movies/movie[not(summary)]/title/text()
+  
+  \item[Titles of movies published more than 5 years ago] \hfill \\
+  /movies/movie[year<2009]/title/text()
+  
+  \item[What was the role of Clint Eastwoord in Unforgiven?] \hfill \\
+  /movies/movie[title="Unforgiven"]/actor[firstname="Clint" and lastname="Eastwood"]/role/text()
+  
+  \item[What is the last movie of the document?] \hfill \\
+  /movies/movie[last()]
+  
+  \item[Title of the film that immediatly precedes Marie Antoinette in the document?] \hfill \\
+  /movies/movie[title="Marie Antoinette"]/preceding-sibling::*[1]/title/text()
+  
+  \item[Get the movies whose title contains a "V"] \hfill \\
+  /movies/movie[contains(title, "V")]/title/text()
+  
+  \item[Get the movies whose cast consist of exactly three actors] \hfill \\
+    /movies/movie[count(actor) = 3]
+\end{description} 
+
+\subsection{XQUERY Output}
+
+\begin{description}
+  \item[List the movies published after 2002, including their title and year] \hfill \\
+  \begin{verbatim}
+	<results> { 
+		let $ms := doc("movies/movies_alone.xml"), $as := doc("movies/artists_alone.xml") 
+		for $a in $ms//movie where $a/year > 2002 
+		return 
+			<result> {$a/title} {$a/year} </result>
+	} </results>
+  \end{verbatim}
+
+\item[Create a flat list of all title-role pairs, enclosed in a "result element] \hfill \\
+  \begin{verbatim}
+	<results>{
+	let $ms := doc("movies/movies_alone.xml"),
+	$as := doc("movies/artists_alone.xml")
+	for $t in $ms//movie
+	return 
+	    for $a in $t//actor
+	    return 
+	        <result>
+	            {$t/title}
+	            <role>{string($a/@role)}</role>
+	        </result>
+	}
+	</results>
+  \end{verbatim}
+
+\item[Give the title of movies where the director is also one of the actors] \hfill \\
+  \begin{verbatim}
+	let $ms := doc("movies/movies_alone.xml"),
+	$as := doc("movies/artists_alone.xml")
+	for $t in $ms//movie
+	where $t/director/@id = $t/actor/@id 
+	return 
+		$t/title/text()
+  \end{verbatim}
+  
+\item[Show the movies, grouped by genre] \hfill \\
+  \begin{verbatim}
+	<results>{
+	let $ms := doc("movies/movies_alone.xml"),
+	$as := doc("movies/artists_alone.xml")
+	for $genre in distinct-values($ms//movie/genre)
+	let $t := $ms//movie[genre=$genre]
+	return 
+	    <result> <genre> {$genre} </genre> {$t} </result>
+	}</results>
+  \end{verbatim}
+  
+\item[For each distinct actor's id, show the titles of the movies where this actor plays a role] \hfill \\
+  \begin{verbatim}
+	<results>{
+	let $ms := doc("movies/movies_alone.xml"),
+	$as := doc("movies/artists_alone.xml")
+	for $actorId in distinct-values($ms//movie/actor/@id)
+	let $t := $ms//movie[actor/@id = $actorId]/title
+	return 
+	    <actor> {$actorId}, {$t} </actor>
+	}</results>
+  \end{verbatim}
+  
+\item[Variant only showing actors playing in at least two movies] \hfill \\
+  \begin{verbatim}
+	<results>{
+	let $ms := doc("movies/movies_alone.xml"),
+	$as := doc("movies/artists_alone.xml")
+	for $actorId in distinct-values($ms//movie/actor/@id)
+	let $t := $ms//movie[actor/@id = $actorId]/title
+	return 
+	    if(count($t) > 1) then
+	        <actor> {$actorId}, {$t} </actor>
+	    else
+	        ()
+	}</results>
+  \end{verbatim}
+  
+\item[Give the title of each movie, along with the name if its director] \hfill \\
+  \begin{verbatim}
+	<results>{
+	let $ms := doc("movies/movies_alone.xml"),
+	$as := doc("movies/artists_alone.xml")
+	for $movie in $ms//movie, $director in $as//artist[@id = $movie/director/@id]
+	return 
+	    <result>
+	        {$movie/title}
+	        <director>
+	            {$director/first_name}
+	            {$director/last_name}
+	        </director>
+	    </result>
+	}</results>
+  \end{verbatim}
+  
+\item[Give the title of each movie, and a nested element giving the list of actors with their role] \hfill \\
+  \begin{verbatim}
+	<results>{
+	let $ms := doc("movies/movies_alone.xml"),
+	$as := doc("movies/artists_alone.xml")
+	for $movie in $ms//movie 
+	return 
+	    <result>
+	        {$movie/title} 
+	        <actors> {
+	        for $a in $movie/actor, $actor in $as//artist[@id = $a/@id]
+	    	return
+		       <actor>
+		           {$actor/first_name}
+		           {$actor/last_name}
+		           <role>{string($a/@role)}</role>
+		       </actor> 
+	    	} </actors>
+	    </result>
+	}</results>
+  \end{verbatim}
+  
+\item[For each movie that has at least two actors, list the title and firs two actors, and an empty "et-al" element if the movie has additional actors] \hfill \\
+  \begin{verbatim}
+	<results>{
+	let $ms := doc("movies/movies_alone.xml"), $as := doc("movies/artists_alone.xml")
+	for $movie in $ms//movie 
+	let $count := count($movie/actor)
+	return
+	    if($count > 1) then
+	        <result>
+	            {$movie/title} {
+	            	for $a in subsequence($movie/actor, 1, 2), $actor in $as//artist[@id = $a/@id]
+	        		return        
+	               		<actor>
+	               			{$actor/first_name/text()} {$actor/last_name/text()} as {string($a/@role)}
+	               		</actor>            
+	        	}
+	        	{if($count > 2) then
+	            	<et-al/>
+	        	else
+	            	()
+	        	}
+	        </result>
+	    else
+	        ()
+	}</results>
+  \end{verbatim}
+
+\item[List the titles and years of all movies directed by Clint Eastwood after 1990, in alphabetical order] \hfill \\
+  \begin{verbatim}
+	<results>{
+	let $ms := doc("movies/movies_alone.xml"),
+	$as := doc("movies/artists_alone.xml")
+	for $actor in $as//artist[first_name="Clint" and last_name="Eastwood"]
+	    for $movie in $ms//movie[director/@id = $actor//@id]
+	    where $movie/year > 1990
+	    order by $movie/title
+	    return 
+	        <result>
+	            {$movie/title}
+	            {$movie/year}
+	        </result>
+	}</results>
+  \end{verbatim}
+\end{description} 
+
+\end{document}

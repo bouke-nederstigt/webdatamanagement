@@ -1,0 +1,69 @@
+\documentclass[pitch,12pt]{report}
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+%\usepackage[]{amsmath}
+\usepackage{color}
+%\usepackage{mathtools}
+\usepackage[]{fullpage}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{subfiles}
+\usepackage{epstopdf}
+\usepackage{parskip}
+\usepackage{datetime}
+\usepackage{placeins}
+\usepackage{titling}
+\usepackage{subcaption}
+%\usepackage{float}
+%\usepackage{mcode}
+\usepackage{url}
+\usepackage{soul}
+
+% Cancel this if you wanna have "Chapter 1 and then the name"
+\usepackage{titlesec}
+\titleformat{\chapter}{\normalfont\huge}{\huge\textbf\thechapter\textbf.}{20pt}{\huge\textbf}
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+
+\newcommand{\horrule}[1]{\rule{\linewidth}{#1}} % Create horizontal rule command with 1 argument of height
+\newcommand{\todo}[1] {\hl{#1}}
+\renewcommand*\thesection{\arabic{section}}
+
+
+\title{
+\Large \textsc{Delft University of Technology} \\ \vspace{1cm}
+\normalfont \normalsize
+\textsc{{\large Faculty Electrical Engineering, Mathematics and Computer Science} } \\ [25pt] % Your university, school and/or department name(s)
+\horrule{0.5pt} \\[0.4cm] % Thin top horizontal rule
+\huge Managing XML Database with eXist \\ 
+Web Data Management (IN4331)\\ 2014 % The assignment title
+\horrule{2pt} \\[0.5cm] % Thick bottom horizontal rule
+}
+
+\author{Bouke Nederstigt \hspace{1cm} \hfill 4008812\\Abhishek Sen \hspace{1cm} \hfill 4319850} % Your name
+
+\date{}
+
+\begin{document}
+\maketitle
+
+\tableofcontents
+\listoffigures
+%\listoftables\newpage
+
+%\subfile{Problem.tex}
+
+\subfile{Intro.tex}
+\subfile{xPath&xQuery.tex}
+\subfile{MoviesApp.tex}
+\subfile{Shakespeare.tex}
+\subfile{MusicXML.tex}
+% 1
+%\subfile{Section_1/Research.tex}
+%\subfile{Section_1/Method.tex}
+%\subfile{Section_1/Results.tex}
+
+% 8
+%\subfile{Conclusions}
+%\subfile{References}
+
+\end{document}
