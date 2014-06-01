@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  1 JUN 2014 22:38
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  1 JUN 2014 22:48
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -643,7 +643,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 151--152
  []
 
 
-Overfull \hbox (371.07416pt too wide) in paragraph at lines 173--174
+Overfull \hbox (376.32416pt too wide) in paragraph at lines 173--174
 []
  []
 
@@ -676,7 +676,7 @@ e/text()} as {string($a/@role)}[]
  []
 
 
-Overfull \hbox (116.47414pt too wide) in paragraph at lines 200--201
+Overfull \hbox (70.75192pt too wide) in paragraph at lines 200--201
 []
  []
 
@@ -726,52 +726,52 @@ File: ./Figures/MacbethTOC.png Graphic file (type png)
 Package pdftex.def Info: ./Figures/MacbethTOC.png used on input line 39.
 (pdftex.def)             Requested size: 469.75502pt x 476.42027pt.
  [13 <./Figures/MacbethTOC.png>]
-<./Figures/MacbethCharacterSceneDetails.png, id=59, 773.89125pt x 863.225pt>
+<./Figures/MacbethCharacterSceneDetails.png, id=59, 769.87625pt x 647.41875pt>
 File: ./Figures/MacbethCharacterSceneDetails.png Graphic file (type png)
 
 <use ./Figures/MacbethCharacterSceneDetails.png>
 Package pdftex.def Info: ./Figures/MacbethCharacterSceneDetails.png used on inp
 ut line 49.
-(pdftex.def)             Requested size: 469.75502pt x 523.98483pt.
- [14]) (./MusicXML.tex [15 <./Figures/MacbethCharacterSceneDetails.png>]
-<./Figures/MusicXMLOnline-index.png, id=66, 1445.4pt x 813.0375pt>
+(pdftex.def)             Requested size: 469.75502pt x 395.0434pt.
+) (./MusicXML.tex [14 <./Figures/MacbethCharacterSceneDetails.png>]
+<./Figures/MusicXMLOnline-index.png, id=65, 1440.88312pt x 321.45094pt>
 File: ./Figures/MusicXMLOnline-index.png Graphic file (type png)
 
 <use ./Figures/MusicXMLOnline-index.png>
 Package pdftex.def Info: ./Figures/MusicXMLOnline-index.png used on input line 
 31.
-(pdftex.def)             Requested size: 469.75502pt x 264.23405pt.
- [16]
-<./Figures/MusicXMLOnline-pdf.png, id=70, 1445.4pt x 813.0375pt>
+(pdftex.def)             Requested size: 469.75502pt x 104.79893pt.
+ [15]
+<./Figures/MusicXMLOnline-pdf.png, id=69, 1440.88312pt x 673.76718pt>
 File: ./Figures/MusicXMLOnline-pdf.png Graphic file (type png)
 
 <use ./Figures/MusicXMLOnline-pdf.png>
 Package pdftex.def Info: ./Figures/MusicXMLOnline-pdf.png used on input line 38
 .
-(pdftex.def)             Requested size: 469.75502pt x 264.23405pt.
- [17 <./Figures/MusicXMLOnline-index.png>] <./Figures/MusicXMLOnline-player.png
-, id=74, 1445.4pt x 813.0375pt>
+(pdftex.def)             Requested size: 469.75502pt x 219.66055pt.
+
+<./Figures/MusicXMLOnline-player.png, id=70, 1441.63594pt x 175.40532pt>
 File: ./Figures/MusicXMLOnline-player.png Graphic file (type png)
 
 <use ./Figures/MusicXMLOnline-player.png>
 Package pdftex.def Info: ./Figures/MusicXMLOnline-player.png used on input line
  50.
-(pdftex.def)             Requested size: 469.75502pt x 264.23405pt.
- [18 <./Figures/MusicXMLOnline-pdf.png>] <./Figures/MusicXMLOnline-search.png, 
-id=79, 1445.4pt x 813.0375pt>
+(pdftex.def)             Requested size: 469.75502pt x 57.15324pt.
+ [16 <./Figures/MusicXMLOnline-index.png> <./Figures/MusicXMLOnline-pdf.png>]
+<./Figures/MusicXMLOnline-search.png, id=76, 1441.63594pt x 170.13562pt>
 File: ./Figures/MusicXMLOnline-search.png Graphic file (type png)
 
 <use ./Figures/MusicXMLOnline-search.png>
 Package pdftex.def Info: ./Figures/MusicXMLOnline-search.png used on input line
  59.
-(pdftex.def)             Requested size: 469.75502pt x 264.23405pt.
- [19 <./Figures/MusicXMLOnline-player.png>]) (./Future.tex [20 <./Figures/Music
-XMLOnline-search.png>])
+(pdftex.def)             Requested size: 469.75502pt x 55.43619pt.
+) (./Future.tex [17 <./Figures/MusicXMLOnline-player.png> <./Figures/MusicXMLOn
+line-search.png>])
 
 Package caption Warning: Unused \captionsetup[sub] on input line 15.
 See the caption package documentation for explanation.
 
-[21] (./Pitch.aux) ) 
+[18] (./Pitch.aux) ) 
 Here is how much of TeX's memory you used:
  5032 strings out of 493315
  74084 string characters out of 6137904
@@ -789,10 +789,10 @@ cm/cmr17.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm
 /cmsy10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/
 cmti12.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/c
 mtt12.pfb>
-Output written on Pitch.pdf (22 pages, 1292473 bytes).
+Output written on Pitch.pdf (19 pages, 923473 bytes).
 PDF statistics:
- 116 PDF objects out of 1000 (max. 8388607)
- 74 compressed objects within 1 object stream
+ 113 PDF objects out of 1000 (max. 8388607)
+ 69 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  46 words of extra memory for PDF output out of 10000 (max. 10000000)
 

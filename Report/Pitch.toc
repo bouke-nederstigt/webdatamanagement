@@ -9,7 +9,7 @@
 \contentsline {section}{\numberline {4}Shakespeare Application}{12}
 \contentsline {subsection}{\numberline {4.1}Architecture}{12}
 \contentsline {subsection}{\numberline {4.2}Character Lines Display}{14}
-\contentsline {section}{\numberline {5}MusicXML Online Application}{16}
-\contentsline {subsection}{\numberline {5.1}Architecture}{16}
-\contentsline {subsection}{\numberline {5.2}Results}{16}
-\contentsline {section}{\numberline {6}Future Improvements to MusicXML Online Application}{21}
+\contentsline {section}{\numberline {5}MusicXML Online Application}{15}
+\contentsline {subsection}{\numberline {5.1}Architecture}{15}
+\contentsline {subsection}{\numberline {5.2}Results}{15}
+\contentsline {section}{\numberline {6}Future Improvements to MusicXML Online Application}{18}
