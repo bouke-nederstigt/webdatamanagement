@@ -33,22 +33,33 @@ public class Authors {
     }
 
     /**
-     * Reducer class -- receives pairs (autor name, <list of counts>)
-     * and sums up the counts to get the number of publications per author
+     * Combiner class. Used instead of CountReducer function from the book
      */
-    public static class CountReducer extends Reducer<Text, IntWritable, Text, IntWritable> {
+    public static class CountCombiner extends Reducer<Text, IntWritable, Text, IntWritable> {
 
         private IntWritable result = new IntWritable();
 
         public void reduce(Text key, Iterable<IntWritable> values, Context context) throws IOException, InterruptedException {
-
-            /* Iterate on the list to compute the count */
             int count = 0;
-            for(IntWritable val : values) {
+            for(IntWritable val : values){
                 count += val.get();
             }
+
             result.set(count);
             context.write(key, result);
+        }
+    }
+
+    /**
+     * Reducer class -- receives pairs (author name, <list of counts>)
+     * and sums up the counts to get the number of publications per author
+     */
+    public static class CountReducer extends Reducer<Text, IntWritable, Text, IntWritable> {
+
+
+        public void reduce(Text key, IntWritable values, Context context) throws IOException, InterruptedException {
+
+            context.write(key, values);
         }
     }
 }

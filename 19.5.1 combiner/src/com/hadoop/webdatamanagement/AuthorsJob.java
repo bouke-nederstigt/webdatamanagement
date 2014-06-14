@@ -35,8 +35,9 @@ public class AuthorsJob {
         //define and submit job
         Job job = new Job(conf, "Authors count");
 
-        //define mapper and reducer
+        //define mapper, combiner and reducer
         job.setMapperClass(Authors.AuthorsMapper.class);
+        job.setCombinerClass(Authors.CountCombiner.class);
         job.setReducerClass(Authors.CountReducer.class);
 
         //define output type
