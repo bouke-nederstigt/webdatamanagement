@@ -17,8 +17,9 @@ import java.util.Map;
  */
 public class ReadMovieXML extends DefaultHandler {
 
-    private static String directorTitle;
-    private static List<String> actorTitle = new ArrayList<String>();
+    public static String title;
+    public static String director;
+    public static Map<String, String> actors = new HashMap<String, String>();
 
     public void readMovie(InputStream movie){
         try{
@@ -108,13 +109,14 @@ public class ReadMovieXML extends DefaultHandler {
                 public void endElement(String uri, String localName, String qName) throws SAXException{
                     if(qName.equalsIgnoreCase("title")){
                         title = false;
+                        ReadMovieXML.title = movieTitle;
                     }
                     if(qName.equalsIgnoreCase("director")){
-                        ReadMovieXML.directorTitle = movieTitle + "\t" + dirFirst + " " + dirLast + "\t" + movieYear;
+                        ReadMovieXML.director = dirFirst + " " + dirLast;
                         director = false;
                     }
                     if(qName.equalsIgnoreCase("actor")){
-                        ReadMovieXML.actorTitle.add(movieTitle + "\t" + tempActorFirst + " " + tempActorLast + "\t" + tempActorBirth + "\t" + tempActorRole);
+                        actors.put(tempActorFirst + " " + tempActorLast, tempActorBirth + "\t" + tempActorRole);
                         tempActorFirst = null;
                         tempActorLast = null;
                         tempActorRole = null;
