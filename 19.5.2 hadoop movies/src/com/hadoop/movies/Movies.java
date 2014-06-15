@@ -22,6 +22,7 @@ public class Movies {
 
         public void map (LongWritable key, Text value, Context context) throws IOException, InterruptedException {
 
+
         }
     }
 }
