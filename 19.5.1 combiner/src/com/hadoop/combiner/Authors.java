@@ -1,4 +1,4 @@
-package com.hadoop.webdatamanagement;
+package com.hadoop.combiner;
 
 import org.apache.hadoop.io.*;
 import org.apache.hadoop.mapreduce.Mapper;

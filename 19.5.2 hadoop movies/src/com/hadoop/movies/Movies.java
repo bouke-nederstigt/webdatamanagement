@@ -1,20 +1,15 @@
 package com.hadoop.movies;
 
-import com.sun.org.apache.xerces.internal.parsers.SAXParser;
 import org.apache.hadoop.io.*;
-import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
-import org.xml.sax.SAXException;
-import org.xml.sax.helpers.DefaultHandler;
+import org.apache.hadoop.mapreduce.Reducer;
+import org.apache.hadoop.mapreduce.lib.output.MultipleOutputs;
 
-import javax.xml.parsers.SAXParserFactory;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Scanner;
-import java.util.jar.Attributes;
 
 /**
  * Created by bouke on 15-6-14.
@@ -23,10 +18,7 @@ import java.util.jar.Attributes;
  */
 public class Movies {
 
-    public static class TitleActorMapper extends Mapper<LongWritable, Text, Text, Text> {
-
-        private final static IntWritable one = new IntWritable(1);
-        private Text line = new Text();
+    public static class MoviesMapper extends Mapper<LongWritable, Text, IntWritable, Text> {
 
         public void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
 
@@ -36,15 +28,42 @@ public class Movies {
             ReadMovieXML readMovieXML = new ReadMovieXML();
             readMovieXML.readMovie(inputStream);
 
+            context.write(new IntWritable(1),  new Text(ReadMovieXML.director + "\t" + ReadMovieXML.title + "\t" + ReadMovieXML.year));
+
             Iterator it = readMovieXML.actors.entrySet().iterator();
             while(it.hasNext()){
                 Map.Entry pairs = (Map.Entry)it.next();
                 String actorName = pairs.getKey().toString();
                 String actorDetails = pairs.getValue().toString();
-                context.write(new Text(ReadMovieXML.title), new Text(actorName +  "\t" + actorDetails));
+                context.write(new IntWritable(2), new Text(ReadMovieXML.title + "\t" +actorName +  "\t" + actorDetails));
             }
 
         }
     }
+
+    public static class MoviesReducer extends Reducer<WritableComparable, Writable, WritableComparable, Writable> {
+
+        private MultipleOutputs out;
+
+        public void setup(Context context){
+            out = new MultipleOutputs(context);
+        }
+
+        public void reduce(IntWritable key, Iterable<Text> values, Context context) throws IOException, InterruptedException {
+            for(Text text: values){
+                if(key.get() == 1){
+                    out.write("director", NullWritable.get(), text, "director-and-title.txt");
+                }
+                if(key.get() == 2){
+                    out.write("title", NullWritable.get(), text, "title-and-actor.txt");
+                }
+            }
+        }
+
+        public void cleanup(Context context) throws IOException, InterruptedException {
+            out.close();
+        }
+    }
+
 
 }

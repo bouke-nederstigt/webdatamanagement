@@ -1,4 +1,4 @@
-package com.hadoop.webdatamanagement;
+package com.hadoop.combiner;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.io.IntWritable;
@@ -7,8 +7,6 @@ import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
 import org.apache.hadoop.fs.Path;
-
-import com.hadoop.webdatamanagement.Authors;
 
 /**
  * Created by bouke on 14-6-14.
@@ -34,6 +32,7 @@ public class AuthorsJob {
 
         //define and submit job
         Job job = new Job(conf, "Authors count");
+        job.setJarByClass(AuthorsJob.class);
 
         //define mapper, combiner and reducer
         job.setMapperClass(Authors.AuthorsMapper.class);
