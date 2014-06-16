@@ -1,0 +1,10 @@
+Load title-and-actor and group on the title. Actors along with roles shoudl appear as nested bag
+-------------------------------------------
+titlesActors = load '/home/bouke/output/title-and-actor.txt'
+as (title:chararray, actor:chararray, birth:chararray, role:chararray);
+groupTitle = group titlesActors by title;
+titles = foreach groupTitle generate group, (titlesActors.actor, titlesActors.role);
+-------------------------------------------
+
+Load director and title and group on the director name
+-------------------------------------------
