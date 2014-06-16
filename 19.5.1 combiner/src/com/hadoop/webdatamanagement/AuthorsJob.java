@@ -34,6 +34,7 @@ public class AuthorsJob {
 
         //define and submit job
         Job job = new Job(conf, "Authors count");
+        job.setJarByClass(AuthorsJob.class);
 
         //define mapper, combiner and reducer
         job.setMapperClass(Authors.AuthorsMapper.class);
