@@ -1,84 +1,20 @@
-Lost in Translation	Scarlett  Johansson	1984	Charlotte
+Unforgiven	Gene Hackman	1930	Little Bill Daggett
 A History of Violence	William Hurt	1950	Richie Cusack
 A History of Violence	Vigo Mortensen	1958	Tom Stall
 A History of Violence	Maria Bello	1967	Eddie Stall
 A History of Violence	Ed Harris	1950	Carl Fogarty
-Heat	William Hurt	1950	Richie Cusack
 Heat	Jon Voight	1938	Nate
-Heat	Vigo Mortensen	1958	Tom Stall
 Heat	Robert De Niro	1943	Neil McCauley
-Heat	Maria Bello	1967	Eddie Stall
 Heat	Val Kilmer	1959	Chris Shiherlis
-Heat	Ed Harris	1950	Carl Fogarty
 Heat	Al Pacino	1940	Lt. Vincent Hanna
 Unforgiven	Morgan Freeman	1937	Ned Logan
-Unforgiven	William Hurt	1950	Richie Cusack
-Unforgiven	Jon Voight	1938	Nate
-Unforgiven	Vigo Mortensen	1958	Tom Stall
-Unforgiven	Robert De Niro	1943	Neil McCauley
 Unforgiven	Clint Eastwood	1930	William 'Bill' Munny
-Unforgiven	Maria Bello	1967	Eddie Stall
-Unforgiven	Val Kilmer	1959	Chris Shiherlis
-Unforgiven	Ed Harris	1950	Carl Fogarty
-Unforgiven	Al Pacino	1940	Lt. Vincent Hanna
-Unforgiven	Gene Hackman	1930	Little Bill Daggett
-Match Point	Morgan Freeman	1937	Ned Logan
 Match Point	Jonathan Rhys Meyers	1977	Chris Wilton
-Match Point	William Hurt	1950	Richie Cusack
-Match Point	Jon Voight	1938	Nate
-Match Point	Vigo Mortensen	1958	Tom Stall
-Match Point	Robert De Niro	1943	Neil McCauley
-Match Point	Clint Eastwood	1930	William 'Bill' Munny
-Match Point	Maria Bello	1967	Eddie Stall
 Match Point	Scarlett  Johansson	1984	Nola Rice
-Match Point	Val Kilmer	1959	Chris Shiherlis
-Match Point	Ed Harris	1950	Carl Fogarty
-Match Point	Al Pacino	1940	Lt. Vincent Hanna
-Match Point	Gene Hackman	1930	Little Bill Daggett
-Lost in Translation	Morgan Freeman	1937	Ned Logan
-Lost in Translation	Jonathan Rhys Meyers	1977	Chris Wilton
-Lost in Translation	Robert De Niro	1943	Neil McCauley
-Lost in Translation	Maria Bello	1967	Eddie Stall
+Lost in Translation	Scarlett  Johansson	1984	Charlotte
 Lost in Translation	Bill Murray	1950	Bob Harris
-Lost in Translation	Al Pacino	1940	Lt. Vincent Hanna
-Lost in Translation	William Hurt	1950	Richie Cusack
-Lost in Translation	Vigo Mortensen	1958	Tom Stall
-Lost in Translation	Jon Voight	1938	Nate
-Lost in Translation	Clint Eastwood	1930	William 'Bill' Munny
-Lost in Translation	Val Kilmer	1959	Chris Shiherlis
-Lost in Translation	Ed Harris	1950	Carl Fogarty
-Lost in Translation	Gene Hackman	1930	Little Bill Daggett
-Marie Antoinette	Morgan Freeman	1937	Ned Logan
-Marie Antoinette	Jonathan Rhys Meyers	1977	Chris Wilton
-Marie Antoinette	Robert De Niro	1943	Neil McCauley
-Marie Antoinette	Maria Bello	1967	Eddie Stall
-Marie Antoinette	Scarlett  Johansson	1984	Charlotte
 Marie Antoinette	Kirsten Dunst	1982	Marie Antoinette
-Marie Antoinette	Bill Murray	1950	Bob Harris
-Marie Antoinette	Al Pacino	1940	Lt. Vincent Hanna
-Marie Antoinette	William Hurt	1950	Richie Cusack
-Marie Antoinette	Vigo Mortensen	1958	Tom Stall
-Marie Antoinette	Jon Voight	1938	Nate
-Marie Antoinette	Clint Eastwood	1930	William 'Bill' Munny
-Marie Antoinette	Val Kilmer	1959	Chris Shiherlis
-Marie Antoinette	Ed Harris	1950	Carl Fogarty
 Marie Antoinette	Jason  Schwartzman	1980	Louis XVI
-Marie Antoinette	Gene Hackman	1930	Little Bill Daggett
-Spider-Man	Morgan Freeman	1937	Ned Logan
-Spider-Man	Jonathan Rhys Meyers	1977	Chris Wilton
-Spider-Man	Robert De Niro	1943	Neil McCauley
-Spider-Man	Maria Bello	1967	Eddie Stall
 Spider-Man	Willem Dafoe	1955	Green Goblin / Norman Osborn
-Spider-Man	Scarlett  Johansson	1984	Charlotte
-Spider-Man	Kirsten Dunst	1982	Mary Jane Watson
-Spider-Man	Bill Murray	1950	Bob Harris
-Spider-Man	Al Pacino	1940	Lt. Vincent Hanna
-Spider-Man	William Hurt	1950	Richie Cusack
-Spider-Man	Vigo Mortensen	1958	Tom Stall
-Spider-Man	Jon Voight	1938	Nate
-Spider-Man	Clint Eastwood	1930	William 'Bill' Munny
-Spider-Man	Val Kilmer	1959	Chris Shiherlis
 Spider-Man	Tobey Maguire	1975	Spider-Man / Peter Parker
-Spider-Man	Ed Harris	1950	Carl Fogarty
-Spider-Man	Jason  Schwartzman	1980	Louis XVI
-Spider-Man	Gene Hackman	1930	Little Bill Daggett
+Spider-Man	Kirsten Dunst	1982	Mary Jane Watson
