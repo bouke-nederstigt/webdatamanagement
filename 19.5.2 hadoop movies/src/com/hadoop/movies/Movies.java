@@ -13,7 +13,7 @@ import java.util.Map;
 
 /**
  * Created by bouke on 15-6-14.
- *
+ * <p/>
  * Map and Reduce classes for movies.xml files
  */
 public class Movies {
@@ -28,14 +28,14 @@ public class Movies {
             ReadMovieXML readMovieXML = new ReadMovieXML();
             readMovieXML.readMovie(inputStream);
 
-            context.write(new IntWritable(1),  new Text(ReadMovieXML.director + "\t" + ReadMovieXML.title + "\t" + ReadMovieXML.year));
+            context.write(new IntWritable(1), new Text(ReadMovieXML.director + "\t" + ReadMovieXML.title + "\t" + ReadMovieXML.year));
 
             Iterator it = readMovieXML.actors.entrySet().iterator();
-            while(it.hasNext()){
-                Map.Entry pairs = (Map.Entry)it.next();
+            while (it.hasNext()) {
+                Map.Entry pairs = (Map.Entry) it.next();
                 String actorName = pairs.getKey().toString();
                 String actorDetails = pairs.getValue().toString();
-                context.write(new IntWritable(2), new Text(ReadMovieXML.title + "\t" +actorName +  "\t" + actorDetails));
+                context.write(new IntWritable(2), new Text(ReadMovieXML.title + "\t" + actorName + "\t" + actorDetails));
             }
 
         }
@@ -45,17 +45,17 @@ public class Movies {
 
         private MultipleOutputs out;
 
-        public void setup(Context context){
+        public void setup(Context context) {
             out = new MultipleOutputs(context);
         }
 
         public void reduce(IntWritable key, Iterable<Text> values, Context context) throws IOException, InterruptedException {
-            for(Text text: values){
-                if(key.get() == 1){
-                    out.write("director", NullWritable.get(), text, "director-and-title.txt");
+            for (Text text : values) {
+                if (key.get() == 1) {
+                    out.write("director", NullWritable.get(), text);
                 }
-                if(key.get() == 2){
-                    out.write("title", NullWritable.get(), text, "title-and-actor.txt");
+                if (key.get() == 2) {
+                    out.write("title", NullWritable.get(), text);
                 }
             }
         }

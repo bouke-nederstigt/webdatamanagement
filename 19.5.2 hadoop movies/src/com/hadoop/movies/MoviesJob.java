@@ -1,14 +1,12 @@
 package com.hadoop.movies;
 
-import com.hadoop.combiner.Authors;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.LongWritable;
+import org.apache.hadoop.io.NullWritable;
 import org.apache.hadoop.io.Text;
-import org.apache.hadoop.mapred.OutputFormat;
-import org.apache.hadoop.mapred.TextOutputFormat;
-import org.apache.hadoop.mapred.lib.MultipleTextOutputFormat;
+import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.mapreduce.lib.output.MultipleOutputs;
@@ -52,8 +50,8 @@ public class MoviesJob {
         job.setOutputValueClass(Text.class);
 
         //define multiple outputs
-        MultipleOutputs.addNamedOutput(job, "director", FileOutputFormat.class, Text.class, Text.class);
-        MultipleOutputs.addNamedOutput(job, "title", FileOutputFormat.class, Text.class, Text.class);
+        MultipleOutputs.addNamedOutput(job, "director", TextOutputFormat.class, LongWritable.class, Text.class);
+        MultipleOutputs.addNamedOutput(job, "title", TextOutputFormat.class, IntWritable.class, Text.class);
 
         //set input and output
         org.apache.hadoop.mapreduce.lib.input.FileInputFormat.addInputPath(job, new Path(args[0]));

@@ -23,6 +23,10 @@ public class ReadMovieXML extends DefaultHandler {
     public static Map<String, String> actors = new HashMap<String, String>();
     public static String year;
 
+    public ReadMovieXML(){
+        ReadMovieXML.actors.clear();
+    }
+
     public void readMovie(InputStream movie) {
         try {
             SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
