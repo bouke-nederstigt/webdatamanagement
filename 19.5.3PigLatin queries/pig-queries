@@ -1,10 +1,48 @@
-Load title-and-actor and group on the title. Actors along with roles shoudl appear as nested bag
+Exercise 19.5.3 Run the following PIGLATIN queries on the files obtained from the previous exercise.
+
+1. Load title-and-actor.txt and group on the title. The actors (along with their roles)
+should appear as a nested bag.
+
 -------------------------------------------
-titlesActors = load '/home/bouke/output/title-and-actor.txt'
-as (title:chararray, actor:chararray, birth:chararray, role:chararray);
-groupTitle = group titlesActors by title;
-titles = foreach groupTitle generate group, (titlesActors.actor, titlesActors.role);
+titlesActors = LOAD '/Users/Abhi/Desktop/title-and-actor.txt' AS (title:chararray, actor:chararray, birth:int, role:chararray);
+groupTitle = GROUP titlesActors BY title;
+titles = FOREACH groupTitle GENERATE group, (titlesActors.actor, titlesActors.role);
+dump titles;
 -------------------------------------------
 
-Load director and title and group on the director name
+2. Load director-and-title.txt and group on the director name. Titles should appear as a nested bag.
+-------------------------------------------
+namesDirectors = LOAD '/Users/Abhi/Desktop/director-and-title.txt' AS (director:chararray, title:chararray, year:int);
+groupDirector = GROUP namesDirectors by director;
+titles = FOREACH groupDirector GENERATE group, (namesDirectors.title, namesDirectors.year);
+dump titles;
+-------------------------------------------
+
+3. Apply the cogroup operator to associate a movie, its director and its actors from both sources.
+-------------------------------------------
+titlesActors = LOAD '/Users/Abhi/Desktop/title-and-actor.txt' AS (title:chararray, actor:chararray, birth:int, role:chararray);
+namesDirectors = LOAD '/Users/Abhi/Desktop/director-and-title.txt' AS (director:chararray, title:chararray, year:int);
+groupTitle = GROUP titlesActors BY title;
+titles = FOREACH groupTitle GENERATE group, (titlesActors.actor);
+cogrouped = COGROUP titles BY group, namesDirectors by title;
+dump cogrouped;
+-------------------------------------------
+
+4. Write a PIG program that retrieves the actors that are also director of some movie. Output a tuple for each artist, with two nested bags, one with the movies s/he played a role in, and one with the movies s/he directed.
+-------------------------------------------
+namesActors = LOAD '/Users/Abhi/Desktop/title-and-actor.txt' AS (title:chararray, actor:chararray, birth:int, role:chararray);
+namesDirectors = LOAD '/Users/Abhi/Desktop/director-and-title.txt' AS (director:chararray, title:chararray, year:int);
+groupActorMovies = GROUP namesActors BY actor;
+actorTitles = FOREACH groupActorMovies GENERATE group, (namesActors.title);
+actorAndDirector = JOIN namesActors BY actor, namesDirectors BY director;
+result = COGROUP actorTitles BY group, actorAndDirector BY director;
+dump result;
+-------------------------------------------
+
+5. Write a modified version that looks for artists that were both actors and director of a same movie.
+-------------------------------------------
+namesActors = LOAD '/Users/Abhi/Desktop/title-and-actor.txt' AS (title:chararray, actor:chararray, role:chararray);
+namesDirectors = LOAD '/Users/Abhi/Desktop/director-and-title.txt' AS (director:chararray, title:chararray, year:int);
+actorAndDirector = JOIN namesActors BY actor, namesDirectors BY director;
+dump actorAndDirector;
 -------------------------------------------
