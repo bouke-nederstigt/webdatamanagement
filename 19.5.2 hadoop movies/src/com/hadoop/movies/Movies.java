@@ -43,7 +43,7 @@ public class Movies {
         }
     }
 
-    public static class MoviesReducer extends Reducer<LongWritable, Text, Text, Text> {
+    public static class MoviesReducer extends Reducer<Text, Text, Text, Text> {
 
         private MultipleOutputs out;
 
@@ -59,10 +59,10 @@ public class Movies {
                 String newKey = line.next();
                 String newValue = line.next() + "\t" + line.next();
 
-                if (key.equals("1")) {
+                if (key.toString().equals("1")) {
                     out.write("director", new Text(newKey), new Text(newValue));
                 }
-                if (key.equals("2")) {
+                if (key.toString().equals("2")) {
                     out.write("title", new Text(newKey), new Text(newValue));
                 }
             }
