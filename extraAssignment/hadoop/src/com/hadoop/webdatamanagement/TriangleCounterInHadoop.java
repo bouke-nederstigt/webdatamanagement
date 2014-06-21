@@ -15,52 +15,73 @@ import java.util.*;
 /**
  * Created by ane on 6/18/14.
  */
+
+/**
+ * Main class for counting triangles in Hadoop via Multi-way Join
+ */
 public class TriangleCounterInHadoop {
 
+    //the default number of buckets to which the vertices will be hashed (2^3 reducers will be needed)
     private static int noBuckets = 2;
 
+    /**
+     * Mapper class for sending edges to reducers
+     */
     public static class EdgeMapper extends Mapper<LongWritable, Text, LongWritable, EdgeWritable> {
 
         public void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
-            /* Open a scanner object to parse the line */
+            //parse input line
             Scanner line = new Scanner(value.toString());
             line.useDelimiter((" "));
+            //the first long is the current vertex
             long v1 = line.nextLong(), v2;
+            //the rest of the longs are the current vertex's neighbors
             while (line.hasNextLong()) {
                 v2 = line.nextLong();
+                //only send edge if vertices are in correct order
                 if (v1 < v2) {
+                    //compute hashes of vertices
                     long mod1 = v1 % noBuckets;
                     long mod2 = v2 % noBuckets;
                     long id;
+                    //for each bucket value
                     for (int i = 0; i < noBuckets; i++) {
+                        //send edge of type XY to reducer (h(v1), h(v2), i)
                         id = mod1 * noBuckets ^ 2 + mod2 * noBuckets + i;
                         context.write(new LongWritable(id), new EdgeWritable(v1, v2, EdgeWritable.EDGE_TYPE.XY));
+                        //send edge of type YZ to reducer (i, h(v1), h(v2))
                         id = i * noBuckets ^ 2 + mod1 * noBuckets + mod2;
                         context.write(new LongWritable(id), new EdgeWritable(v1, v2, EdgeWritable.EDGE_TYPE.YZ));
+                        //send edge of type XZ to reducer (h(v1), i, h(v2))
                         id = mod1 * noBuckets ^ 2 + i * noBuckets + mod2;
                         context.write(new LongWritable(id), new EdgeWritable(v1, v2, EdgeWritable.EDGE_TYPE.XZ));
                     }
-
                 }
             }
-
         }
     }
 
+    /**
+     * Reducer class for counting triangles at each reducer
+     */
     public static class EdgeReducer extends Reducer<LongWritable, EdgeWritable, LongWritable, LongWritable> {
 
         public void reduce(LongWritable key, Iterable<EdgeWritable> values, Context context) throws IOException, InterruptedException {
+            /**
+             *  Store edges in a map, by relation type
+             */
             HashMap<EdgeWritable.EDGE_TYPE, TreeSet<EdgeWritable>> rels = new HashMap<EdgeWritable.EDGE_TYPE, TreeSet<EdgeWritable>>();
-
             for (EdgeWritable.EDGE_TYPE r : EdgeWritable.EDGE_TYPE.values()){
                 rels.put(r, new TreeSet<EdgeWritable>());
             }
-
             for (EdgeWritable e : values) {
                 TreeSet<EdgeWritable> edges = rels.get(e.edgeType);
                 edges.add(new EdgeWritable(e.sourceVertex, e.targetVertex));
             }
 
+            /**
+             * Count triangles
+             */
             long count = 0;
             for (EdgeWritable e1: rels.get(EdgeWritable.EDGE_TYPE.XY)) {
                 for(EdgeWritable e2: rels.get(EdgeWritable.EDGE_TYPE.YZ)){
@@ -69,6 +90,10 @@ public class TriangleCounterInHadoop {
                             count++;
                 }
             }
+
+            /**
+             * Store result
+             */
             context.write(key, new LongWritable(count));
         }
     }
