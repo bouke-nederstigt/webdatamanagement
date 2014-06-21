@@ -9,6 +9,9 @@ import org.apache.log4j.Logger;
 
 import java.io.IOException;
 
+/**
+ * Main class for counting triangles using Giraph
+ */
 public class TriangleCounterInGiraph extends BasicComputation<
         LongWritable, LongWritable, NullWritable, LongWritable> {
 
@@ -20,6 +23,10 @@ public class TriangleCounterInGiraph extends BasicComputation<
             Vertex<LongWritable, LongWritable, NullWritable> vertex,
             Iterable<LongWritable> messages) throws IOException {
 
+        /**
+         * All vertices send their IDs to their neighbors which have a greater ID
+         * (messages travel on edges of type XY)
+         */
         if (getSuperstep() == 0) {
             for (Edge<LongWritable, NullWritable> edge : vertex.getEdges()) {
                 if (edge.getTargetVertexId().compareTo(vertex.getId()) > 0) {
@@ -28,6 +35,10 @@ public class TriangleCounterInGiraph extends BasicComputation<
             }
         }
 
+        /**
+         * All vertices forward the messages they received to their neighbors which have even a greater ID
+         * (messages travel on edges of type YZ)
+         */
         if (getSuperstep() == 1) {
             for (LongWritable message: messages) {
                 for (Edge<LongWritable, NullWritable> edge : vertex.getEdges()) {
@@ -42,6 +53,10 @@ public class TriangleCounterInGiraph extends BasicComputation<
             }
         }
 
+        /**
+         * All vertices forward the messages they received to all their neighbors
+         * (in the hope of discovering XZ edges)
+         */
         if (getSuperstep() == 2) {
             for (LongWritable message: messages) {
                 for (Edge<LongWritable, NullWritable> edge : vertex.getEdges()) {
@@ -54,6 +69,10 @@ public class TriangleCounterInGiraph extends BasicComputation<
             }
         }
 
+        /**
+         * All vertices count how many messages received in the previous step contain their ID
+         * (making them the vertices with the smallest ID in that triangle)
+         */
         if (getSuperstep() == 3) {
             Long count = 0L;
             for (LongWritable message: messages) {
