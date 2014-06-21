@@ -46,12 +46,12 @@ public class MoviesJob {
         job.setInputFormatClass(XMLInputFormat.class);
 
         //define output type
-        job.setOutputKeyClass(IntWritable.class);
+        job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(Text.class);
 
         //define multiple outputs
-        MultipleOutputs.addNamedOutput(job, "director", TextOutputFormat.class, LongWritable.class, Text.class);
-        MultipleOutputs.addNamedOutput(job, "title", TextOutputFormat.class, IntWritable.class, Text.class);
+        MultipleOutputs.addNamedOutput(job, "director", TextOutputFormat.class, Text.class, Text.class);
+        MultipleOutputs.addNamedOutput(job, "title", TextOutputFormat.class, Text.class, Text.class);
 
         //set input and output
         org.apache.hadoop.mapreduce.lib.input.FileInputFormat.addInputPath(job, new Path(args[0]));

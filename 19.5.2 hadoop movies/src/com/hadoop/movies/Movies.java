@@ -1,6 +1,7 @@
 package com.hadoop.movies;
 
 import org.apache.hadoop.io.*;
+import org.apache.hadoop.mapred.JobConf;
 import org.apache.hadoop.mapreduce.Mapper;
 import org.apache.hadoop.mapreduce.Reducer;
 import org.apache.hadoop.mapreduce.lib.output.MultipleOutputs;
@@ -10,6 +11,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Scanner;
 
 /**
  * Created by bouke on 15-6-14.
@@ -18,7 +20,7 @@ import java.util.Map;
  */
 public class Movies {
 
-    public static class MoviesMapper extends Mapper<LongWritable, Text, IntWritable, Text> {
+    public static class MoviesMapper extends Mapper<LongWritable, Text, Text, Text> {
 
         public void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
 
@@ -28,20 +30,20 @@ public class Movies {
             ReadMovieXML readMovieXML = new ReadMovieXML();
             readMovieXML.readMovie(inputStream);
 
-            context.write(new IntWritable(1), new Text(ReadMovieXML.director + "\t" + ReadMovieXML.title + "\t" + ReadMovieXML.year));
+            context.write(new Text("1"), new Text(ReadMovieXML.director + "\t" + ReadMovieXML.title + "\t" + ReadMovieXML.year));
 
             Iterator it = readMovieXML.actors.entrySet().iterator();
             while (it.hasNext()) {
                 Map.Entry pairs = (Map.Entry) it.next();
                 String actorName = pairs.getKey().toString();
                 String actorDetails = pairs.getValue().toString();
-                context.write(new IntWritable(2), new Text(ReadMovieXML.title + "\t" + actorName + "\t" + actorDetails));
+                context.write(new Text("2"), new Text(ReadMovieXML.title + "\t" + actorName + "\t" + actorDetails));
             }
 
         }
     }
 
-    public static class MoviesReducer extends Reducer<WritableComparable, Writable, WritableComparable, Writable> {
+    public static class MoviesReducer extends Reducer<LongWritable, Text, Text, Text> {
 
         private MultipleOutputs out;
 
@@ -49,13 +51,19 @@ public class Movies {
             out = new MultipleOutputs(context);
         }
 
-        public void reduce(IntWritable key, Iterable<Text> values, Context context) throws IOException, InterruptedException {
+        public void reduce(Text key, Iterable<Text> values, Context context) throws IOException, InterruptedException {
             for (Text text : values) {
-                if (key.get() == 1) {
-                    out.write("director", NullWritable.get(), text);
+
+                Scanner line = new Scanner(text.toString());
+                line.useDelimiter(("\t"));
+                String newKey = line.next();
+                String newValue = line.next() + "\t" + line.next();
+
+                if (key.equals("1")) {
+                    out.write("director", new Text(newKey), new Text(newValue));
                 }
-                if (key.get() == 2) {
-                    out.write("title", NullWritable.get(), text);
+                if (key.equals("2")) {
+                    out.write("title", new Text(newKey), new Text(newValue));
                 }
             }
         }
