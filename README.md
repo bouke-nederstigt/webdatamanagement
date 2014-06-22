@@ -1,9 +1,29 @@
-webdatamanagement
-=================
+Web Data Management
+===================
 
-This repository contains the answers to chapter 5 of the webdatamanagement book. Each folder contains the answers to a certain exercise or the final report.
+This repository contains the answers to chapter 5 and 19 of the Web Data Management book. Each folder contains the answers to a certain exercise.
 
-**Installation instructions MovieLookup & Shakespear**
+**Chapter 19**
+=
+
+**Installation instructions Hadoop & PigLatin**
+Please follow the download and installations instructions for Hadoop & PigLatin in the Web Data Management text book Chapter 19. We used Hadoop version 1.2.1 and PigLatin version 0.12.1.
+
+**Folder contents**
+There are 6 submission folders for this Chapter.
+1. 19.5.1 combiner
+2. 19.5.2 hadoop movies
+3. 19.5.3PigLatin queries
+4. 19.5.4_InvertedFile
+5. extraAssignment
+6. Report/Assgn2
+
+The datasets folders is already referenced by the assignments for the input XML files.
+
+**Chapter 5**
+=
+
+**Installation instructions MovieLookup & Shakespeare**
 
 The folders MovieLookup and Shakespear contain the sourcecode of the eXist XQuery applications. Besides this a xar file is also included. The easiest way to install the applications on eXist database is through the package manager on the eXist dashboard. Just click add a package and upload the application. After this the application can be launched from the eXist dashboard. *The applications were tested and working on eXist version 2.1*
 
