@@ -104,7 +104,7 @@ public class Movies {
                 double tfidf = tfIdfCalc.tfIdfCalculator(tf, idf);
 
                 // Output context
-                output = "tf:" + Double.toString(tf) + "\tidf:" + Double.toString(idf) + "\ttf-idf:" + Double.toString(tfidf);
+                output = "count:" + Integer.toString(wordCount) + "\ttf:" + Double.toString(tf) + "\tidf:" + Double.toString(idf) + "\ttf-idf:" + Double.toString(tfidf);
                 val.set(output);
                 context.write(key, val);
             }
