@@ -1,0 +1,63 @@
+/Library/Java/JavaVirtualMachines/jdk1.7.0_15.jdk/Contents/Home/bin/java -Didea.launcher.port=7546 "-Didea.launcher.bin.path=/Applications/IntelliJ IDEA 13 CE.app/bin" -Dfile.encoding=UTF-8 -classpath "/Library/Java/JavaVirtualMachines/jdk1.7.0_15.jdk/Contents/Home/lib/ant-javafx.jar:/Library/Java/JavaVirtualMachines/jdk1.7.0_15.jdk/Contents/Home/lib/dt.jar:/Library/Java/JavaVirtualMachines/jdk1.7.0_15.jdk/Contents/Home/lib/javafx-doclet.jar:/Library/Java/JavaVirtualMachines/jdk1.7.0_15.jdk/Contents/Home/lib/javafx-mx.jar:/Library/Java/JavaVirtualMachines/jdk1.7.0_15.jdk/Contents/Home/lib/jconsole.jar:/Library/Java/JavaVirtualMachines/jdk1.7.0_15.jdk/Contents/Home/lib/sa-jdi.jar:/Library/Java/JavaVirtualMachines/jdk1.7.0_15.jdk/Contents/Home/lib/tools.jar:/Library/Java/JavaVirtualMachines/jdk1.7.0_15.jdk/Contents/Home/jre/lib/charsets.jar:/Library/Java/JavaVirtualMachines/jdk1.7.0_15.jdk/Contents/Home/jre/lib/deploy.jar:/Library/Java/JavaVirtualMachines/jdk1.7.0_15.jdk/Contents/Home/jre/lib/htmlconverter.jar:/Library/Java/JavaVirtualMachines/jdk1.7.0_15.jdk/Contents/Home/jre/lib/javaws.jar:/Library/Java/JavaVirtualMachines/jdk1.7.0_15.jdk/Contents/Home/jre/lib/jce.jar:/Library/Java/JavaVirtualMachines/jdk1.7.0_15.jdk/Contents/Home/jre/lib/jfr.jar:/Library/Java/JavaVirtualMachines/jdk1.7.0_15.jdk/Contents/Home/jre/lib/jfxrt.jar:/Library/Java/JavaVirtualMachines/jdk1.7.0_15.jdk/Contents/Home/jre/lib/JObjC.jar:/Library/Java/JavaVirtualMachines/jdk1.7.0_15.jdk/Contents/Home/jre/lib/jsse.jar:/Library/Java/JavaVirtualMachines/jdk1.7.0_15.jdk/Contents/Home/jre/lib/management-agent.jar:/Library/Java/JavaVirtualMachines/jdk1.7.0_15.jdk/Contents/Home/jre/lib/plugin.jar:/Library/Java/JavaVirtualMachines/jdk1.7.0_15.jdk/Contents/Home/jre/lib/resources.jar:/Library/Java/JavaVirtualMachines/jdk1.7.0_15.jdk/Contents/Home/jre/lib/rt.jar:/Library/Java/JavaVirtualMachines/jdk1.7.0_15.jdk/Contents/Home/jre/lib/ext/dnsns.jar:/Library/Java/JavaVirtualMachines/jdk1.7.0_15.jdk/Contents/Home/jre/lib/ext/localedata.jar:/Library/Java/JavaVirtualMachines/jdk1.7.0_15.jdk/Contents/Home/jre/lib/ext/sunec.jar:/Library/Java/JavaVirtualMachines/jdk1.7.0_15.jdk/Contents/Home/jre/lib/ext/sunjce_provider.jar:/Library/Java/JavaVirtualMachines/jdk1.7.0_15.jdk/Contents/Home/jre/lib/ext/sunpkcs11.jar:/Library/Java/JavaVirtualMachines/jdk1.7.0_15.jdk/Contents/Home/jre/lib/ext/zipfs.jar:/Users/ane/IntellijWorkspace/WDMHadoop/target/test-classes:/Users/ane/IntellijWorkspace/WDMHadoop/target/classes:/Users/ane/.m2/repository/org/apache/hadoop/hadoop-core/1.2.1/hadoop-core-1.2.1.jar:/Users/ane/.m2/repository/commons-cli/commons-cli/1.2/commons-cli-1.2.jar:/Users/ane/.m2/repository/xmlenc/xmlenc/0.52/xmlenc-0.52.jar:/Users/ane/.m2/repository/com/sun/jersey/jersey-core/1.8/jersey-core-1.8.jar:/Users/ane/.m2/repository/com/sun/jersey/jersey-json/1.8/jersey-json-1.8.jar:/Users/ane/.m2/repository/org/codehaus/jettison/jettison/1.1/jettison-1.1.jar:/Users/ane/.m2/repository/stax/stax-api/1.0.1/stax-api-1.0.1.jar:/Users/ane/.m2/repository/com/sun/xml/bind/jaxb-impl/2.2.3-1/jaxb-impl-2.2.3-1.jar:/Users/ane/.m2/repository/javax/xml/bind/jaxb-api/2.2.2/jaxb-api-2.2.2.jar:/Users/ane/.m2/repository/javax/xml/stream/stax-api/1.0-2/stax-api-1.0-2.jar:/Users/ane/.m2/repository/javax/activation/activation/1.1/activation-1.1.jar:/Users/ane/.m2/repository/org/codehaus/jackson/jackson-core-asl/1.7.1/jackson-core-asl-1.7.1.jar:/Users/ane/.m2/repository/org/codehaus/jackson/jackson-mapper-asl/1.8.8/jackson-mapper-asl-1.8.8.jar:/Users/ane/.m2/repository/org/codehaus/jackson/jackson-jaxrs/1.7.1/jackson-jaxrs-1.7.1.jar:/Users/ane/.m2/repository/org/codehaus/jackson/jackson-xc/1.7.1/jackson-xc-1.7.1.jar:/Users/ane/.m2/repository/com/sun/jersey/jersey-server/1.8/jersey-server-1.8.jar:/Users/ane/.m2/repository/asm/asm/3.1/asm-3.1.jar:/Users/ane/.m2/repository/commons-io/commons-io/2.1/commons-io-2.1.jar:/Users/ane/.m2/repository/commons-httpclient/commons-httpclient/3.0.1/commons-httpclient-3.0.1.jar:/Users/ane/.m2/repository/junit/junit/3.8.1/junit-3.8.1.jar:/Users/ane/.m2/repository/commons-logging/commons-logging/1.0.3/commons-logging-1.0.3.jar:/Users/ane/.m2/repository/commons-codec/commons-codec/1.4/commons-codec-1.4.jar:/Users/ane/.m2/repository/org/apache/commons/commons-math/2.1/commons-math-2.1.jar:/Users/ane/.m2/repository/commons-configuration/commons-configuration/1.6/commons-configuration-1.6.jar:/Users/ane/.m2/repository/commons-collections/commons-collections/3.2.1/commons-collections-3.2.1.jar:/Users/ane/.m2/repository/commons-lang/commons-lang/2.4/commons-lang-2.4.jar:/Users/ane/.m2/repository/commons-digester/commons-digester/1.8/commons-digester-1.8.jar:/Users/ane/.m2/repository/commons-beanutils/commons-beanutils/1.7.0/commons-beanutils-1.7.0.jar:/Users/ane/.m2/repository/commons-beanutils/commons-beanutils-core/1.8.0/commons-beanutils-core-1.8.0.jar:/Users/ane/.m2/repository/commons-net/commons-net/1.4.1/commons-net-1.4.1.jar:/Users/ane/.m2/repository/oro/oro/2.0.8/oro-2.0.8.jar:/Users/ane/.m2/repository/org/mortbay/jetty/jetty/6.1.26/jetty-6.1.26.jar:/Users/ane/.m2/repository/org/mortbay/jetty/jetty-util/6.1.26/jetty-util-6.1.26.jar:/Users/ane/.m2/repository/org/mortbay/jetty/servlet-api/2.5-20081211/servlet-api-2.5-20081211.jar:/Users/ane/.m2/repository/tomcat/jasper-runtime/5.5.12/jasper-runtime-5.5.12.jar:/Users/ane/.m2/repository/tomcat/jasper-compiler/5.5.12/jasper-compiler-5.5.12.jar:/Users/ane/.m2/repository/org/mortbay/jetty/jsp-api-2.1/6.1.14/jsp-api-2.1-6.1.14.jar:/Users/ane/.m2/repository/org/mortbay/jetty/servlet-api-2.5/6.1.14/servlet-api-2.5-6.1.14.jar:/Users/ane/.m2/repository/org/mortbay/jetty/jsp-2.1/6.1.14/jsp-2.1-6.1.14.jar:/Users/ane/.m2/repository/org/eclipse/jdt/core/3.1.1/core-3.1.1.jar:/Users/ane/.m2/repository/ant/ant/1.6.5/ant-1.6.5.jar:/Users/ane/.m2/repository/commons-el/commons-el/1.0/commons-el-1.0.jar:/Users/ane/.m2/repository/net/java/dev/jets3t/jets3t/0.6.1/jets3t-0.6.1.jar:/Users/ane/.m2/repository/hsqldb/hsqldb/1.8.0.10/hsqldb-1.8.0.10.jar:/Applications/IntelliJ IDEA 13 CE.app/lib/idea_rt.jar" com.intellij.rt.execution.application.AppMain TestEdgeWritable
+----TEST /Users/ane/Desktop/testGraphs/input/graph_100_40
+Expected: 10896
+Multi-way Join: 10896
+Giraph: 10896
+----TEST /Users/ane/Desktop/testGraphs/input/graph_100_60
+Expected: 35882
+Multi-way Join: 35882
+Giraph: 35882
+----TEST /Users/ane/Desktop/testGraphs/input/graph_100_80
+Expected: 85269
+Multi-way Join: 85269
+Giraph: 85269
+----TEST /Users/ane/Desktop/testGraphs/input/graph_10_40
+Expected: 9
+Multi-way Join: 9
+Giraph: 9
+----TEST /Users/ane/Desktop/testGraphs/input/graph_10_60
+Expected: 33
+Multi-way Join: 33
+Giraph: 33
+----TEST /Users/ane/Desktop/testGraphs/input/graph_10_80
+Expected: 82
+Multi-way Join: 82
+Giraph: 82
+----TEST /Users/ane/Desktop/testGraphs/input/graph_20_40
+Expected: 74
+Multi-way Join: 74
+Giraph: 74
+----TEST /Users/ane/Desktop/testGraphs/input/graph_20_60
+Expected: 293
+Multi-way Join: 293
+Giraph: 293
+----TEST /Users/ane/Desktop/testGraphs/input/graph_20_80
+Expected: 685
+Multi-way Join: 685
+Giraph: 685
+----TEST /Users/ane/Desktop/testGraphs/input/graph_30_40
+Expected: 284
+Multi-way Join: 284
+Giraph: 284
+----TEST /Users/ane/Desktop/testGraphs/input/graph_30_60
+Expected: 966
+Multi-way Join: 966
+Giraph: 966
+----TEST /Users/ane/Desktop/testGraphs/input/graph_30_80
+Expected: 2284
+Multi-way Join: 2284
+Giraph: 2284
+----TEST /Users/ane/Desktop/testGraphs/input/graph_50_40
+Expected: 1342
+Multi-way Join: 1342
+Giraph: 1342
+----TEST /Users/ane/Desktop/testGraphs/input/graph_50_60
+Expected: 4505
+Multi-way Join: 4505
+Giraph: 4505
+----TEST /Users/ane/Desktop/testGraphs/input/graph_50_80
+Expected: 10749
+Multi-way Join: 10749
+Giraph: 10749
+
+Process finished with exit code 0
