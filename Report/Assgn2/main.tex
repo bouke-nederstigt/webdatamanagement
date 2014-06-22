@@ -1,0 +1,58 @@
+\documentclass[pitch,10pt]{report}
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{color}
+\usepackage[]{fullpage}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{subfiles}
+\usepackage{epstopdf}
+\usepackage{parskip}
+\usepackage{datetime}
+\usepackage{placeins}
+\usepackage{titling}
+\usepackage{url}
+\usepackage{soul}
+\usepackage{float}
+\usepackage{multirow}
+\usepackage{booktabs}
+\usepackage{footnote}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{enumerate}
+
+% Cancel this if you wanna have "Chapter 1 and then the name"
+\usepackage{titlesec}
+\titleformat{\chapter}{\normalfont\huge}{\huge\textbf\thechapter\textbf.}{20pt}{\huge\textbf}
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+
+\newcommand{\horrule}[1]{\rule{\linewidth}{#1}} % Create horizontal rule command with 1 argument of height
+\newcommand{\todo}[1] {\hl{#1}}
+\renewcommand*\thesection{\arabic{section}}
+
+
+\title{
+\Large \textsc{Delft University of Technology} \\ \vspace{1cm}
+\normalfont \normalsize
+\textsc{{\large Faculty Electrical Engineering, Mathematics and Computer Science} } \\ [25pt] % Your university, school and/or department name(s)
+\horrule{0.5pt} \\[0.4cm] % Thin top horizontal rule
+\huge Large-Scale Data Management with HADOOP (IN4331) % The assignment title
+\horrule{2pt} \\[0.5cm] % Thick bottom horizontal rule
+}
+
+\author{Bouke Nederstigt \hspace{1cm} \hfill 4008812\\Anemona Voinea \hspace{1cm} \hfill 4317602\\Abhishek Sen \hspace{1cm} \hfill 4319850} % Your name
+
+\date{}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\subfile{Intro.tex}
+\subfile{Combiner.tex}
+\subfile{Movies.tex}
+\subfile{Piglatin.tex}
+\subfile{IDF.tex}
+\subfile{Graph.tex}
+
+\end{document}

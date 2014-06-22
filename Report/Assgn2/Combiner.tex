@@ -1,0 +1,19 @@
+\documentclass[Combiner.tex]{subfiles}
+\newpage
+\begin{document}
+
+\section{Combiner Functions}
+The goal of this exercise was to practice building combiner functions. The initial MapReduce job from the book is adjusted to support the use of a combiner function. This means the application is a command-line tool which takes two arguments - The input document and output folder. To parse the authors files the application consists of the following components:
+
+\begin{itemize}
+\item com.hadoop.combiner.Authors - This class contains the Mapper, Combiner and Reducer subclasses for the Job. The mapper is the same as in the MapReduce job from the book and parses the file. The Combiner function in this application is the same as the reducer from the book. Because the Reducer does not add any functionality it is only used to write to the file. Normally the reducer would also contain the content from the combiner because one can never be certain that the combiner is executed. But for the sake of simplicity and overview we have left it out in this case.
+\item com.hadoop.combiner.AuthorsJob - This class contains the Job configuration. It is exactly the same as the Job file from the book, except that it also registers a combiner class.
+\end{itemize}
+
+As expected, the output from the application when using a combiner is exactly the same as when a reducer is used. An extract from the file is shown below:
+
+\textit{Craig W. Thompson 1 \\*
+D. Jason Penney 1 \\*
+Daniel H. Fishman 2 \\*}
+
+\end{document}
