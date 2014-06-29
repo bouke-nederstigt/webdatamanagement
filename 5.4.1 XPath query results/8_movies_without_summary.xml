@@ -1,0 +1,23 @@
+<movie>
+<title>Lost in Translation</title>
+<year>2003</year>
+<country>USA</country>
+<genre>Drama</genre>
+<director>
+<last_name>Coppola</last_name>
+<first_name>Sofia</first_name>
+<birth_date>1971</birth_date>
+</director>
+<actor>
+<first_name>Scarlett </first_name>
+<last_name>Johansson</last_name>
+<birth_date>1984</birth_date>
+<role>Charlotte</role>
+</actor>
+<actor>
+<first_name>Bill</first_name>
+<last_name>Murray</last_name>
+<birth_date>1950</birth_date>
+<role>Bob Harris</role>
+</actor>
+</movie>
