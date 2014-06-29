@@ -1,0 +1,33 @@
+\documentclass[Movies.tex]{subfiles}
+\newpage
+\begin{document}
+
+\section{Movies}
+This MapReduce Job takes XML files representing movies as input. Using a SAXParser the files are analyzed and split into two different files. One file containing lines with the title, actor names, year of birth and role. The second file contains the director's name, movie title and the year the movie was released.
+
+\subsection{Major Components}
+Listed below are the major components for this application:
+\begin{itemize}
+\item XMLInputFormat - To be able to parse XML files a MapReduce InputFormat is needed. For this the XMLINputFormat class from the Apache mahout project is used. This class enables the creation of a RecordReader and returns anything between specified XML tags. For this application we are only interested in content in between the 'movie' tags.
+\item ReadMovieXML - This SAXParser implementation does most of the heavy lifting and parses the data taken from the XMLInputFormat . It returns a movie's title, director, year and actors.
+\item Movies - The movie components consist of a Mapper and Reducer subclasses. The mapper creates an input stream that is parsed by the XML parser. For each director a key value pair with key '1' for each actor in a movie a key value pair with key '2' is written to the job context. The values contain the data that need to be written to the file. Depending on the key the Reducer writes the values to the corresponding files using multiple outputs. If key is '1' the values are written to a file "director", and if the key is 2 the values are written to the file "title".
+\item MoviesJob - Job configuration class - Besides the normal configuration items like in the combiner this class also sets the start and end tags for the XMLInputFormat. It also defines the Multiple Outputs "director" and "title" which are used to write to multiple files.
+\end{itemize}
+
+\subsection{Execution Details and Sample Output}
+The application is run from the command line. Two parameters need to be specified. The input document and the output folder. Once this is done two files will be generated. The  director file contains the director with title and production year. An extract from the file is shown below:
+
+\textit{Michael Mann	Heat	1995 \\*
+Clint Eastwood	Unforgiven	1992 \\*
+Sam Raimi	Spider-Man	2002 \\*}
+
+The title file contains the actors with the movies they played in, their birth date and role. Shown below is the sample output for this application:
+
+\textit{Unforgiven	Morgan Freeman	1937 \\*
+Unforgiven	Clint Eastwood	1930 \\*
+Match Point	Jonathan Rhys Meyers	1977 \\*
+Match Point	Scarlett  Johansson	1984 \\* 
+Lost in Translation	Scarlett  Johansson	1984 \\*
+Lost in Translation	Bill Murray	1950 \\*}
+
+\end{document}

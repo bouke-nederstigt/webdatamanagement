@@ -1,0 +1,40 @@
+\documentclass[Piglatin.tex]{subfiles}
+\newpage
+\begin{document}
+
+\section{PigLatin Queries}
+Using the textual outputs from section 3, namely \textit{title-and-actor.txt} and \textit{director-and-title.txt}, we used PigLatin queries to answer the questions from section 19.5.3 of the Web Data Management textbook. The output generated from these commands is available in the GitHub directory under the "19.5.3PigLatin queries" folder.
+
+\subsection{Queries}
+
+\textbf{Load title-and-actor.txt and group on the title. The actors should appear as a nested bag.} \\
+titlesActors = LOAD '/Users/Abhi/Desktop/title-and-actor.txt' AS (title:chararray, actor:chararray, birth:int, role:chararray); \\
+groupTitle = GROUP titlesActors BY title;  \\
+titles = FOREACH groupTitle GENERATE group, (titlesActors.actor, titlesActors.role); \\
+
+\textbf{Load director-and-title.txt and group on the director name. Titles should appear as a nested bag.} \\
+namesDirectors = LOAD '/Users/Abhi/Desktop/director-and-title.txt' AS (director:chararray, title:chararray, year:int); \\
+groupDirector = GROUP namesDirectors by director;  \\
+titles = FOREACH groupDirector GENERATE group, (namesDirectors.title, namesDirectors.year);  \\
+
+\textbf{Apply the cogroup operator to associate a movie, its director and its actors from both sources.} \\
+titlesActors = LOAD '/Users/Abhi/Desktop/title-and-actor.txt' AS (title:chararray, actor:chararray, birth:int, role:chararray);  \\
+namesDirectors = LOAD '/Users/Abhi/Desktop/director-and-title.txt' AS (director:chararray, title:chararray, year:int); \\
+groupTitle = GROUP titlesActors BY title; \\
+titles = FOREACH groupTitle GENERATE group, (titlesActors.actor); \\
+cogrouped = COGROUP titles BY group, namesDirectors by title; \\
+
+\textbf{Write a PIG program that retrieves the actors that are also director of some movie.} \\
+namesActors = LOAD '/Users/Abhi/Desktop/title-and-actor.txt' AS (title:chararray, actor:chararray, birth:int, role:chararray); \\
+namesDirectors = LOAD '/Users/Abhi/Desktop/director-and-title.txt' AS (director:chararray, title:chararray, year:int); \\
+groupActorMovies = GROUP namesActors BY actor; \\
+actorTitles = FOREACH groupActorMovies GENERATE group, (namesActors.title); \\
+actorAndDirector = JOIN namesActors BY actor, namesDirectors BY director; \\
+result = COGROUP actorTitles BY group, actorAndDirector BY director; \\
+
+\textbf{Write a modified version that looks for artists that were both actors and director of a same movie.} \\
+namesActors = LOAD '/Users/Abhi/Desktop/title-and-actor.txt' AS (title:chararray, actor:chararray, role:chararray); \\
+namesDirectors = LOAD '/Users/Abhi/Desktop/director-and-title.txt' AS (director:chararray, title:chararray, year:int); \\
+actorAndDirector = JOIN namesActors BY actor, namesDirectors BY director;
+
+\end{document}

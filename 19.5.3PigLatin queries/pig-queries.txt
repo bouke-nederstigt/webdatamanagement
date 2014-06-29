@@ -1,0 +1,98 @@
+Exercise 19.5.3 Run the following PIGLATIN queries on the files obtained from the previous exercise.
+
+1. Load title-and-actor.txt and group on the title. The actors (along with their roles)
+should appear as a nested bag.
+
+-------------------------------------------
+titlesActors = LOAD '/Users/Abhi/Desktop/title-and-actor.txt' AS (title:chararray, actor:chararray, birth:int, role:chararray);
+groupTitle = GROUP titlesActors BY title;
+titles = FOREACH groupTitle GENERATE group, (titlesActors.actor, titlesActors.role);
+dump titles;
+-------------------------------------------
+OUTPUT:
+-------------------------------------------
+(Heat,({(Val Kilmer),(Al Pacino),(Jon Voight),(Robert De Niro)},{(Chris Shiherlis),(Lt. Vincent Hanna),(Nate),(Neil McCauley)}))
+(Spider-Man,({(Tobey Maguire),(Willem Dafoe),(Kirsten Dunst)},{(Spider-Man / Peter Parker),(Green Goblin / Norman Osborn),(Mary Jane Watson)}))
+(Unforgiven,({(Gene Hackman),(Morgan Freeman),(Clint Eastwood)},{(Little Bill Daggett),(Ned Logan),(William 'Bill' Munny)}))
+(Match Point,({(Jonathan Rhys Meyers),(Scarlett  Johansson)},{(Chris Wilton),(Nola Rice)}))
+(Marie Antoinette,({(Kirsten Dunst),(Jason  Schwartzman)},{(Marie Antoinette),(Louis XVI)}))
+(Lost in Translation,({(Scarlett  Johansson),(Bill Murray)},{(Charlotte),(Bob Harris)}))
+(A History of Violence,({(Maria Bello),(Vigo Mortensen),(Ed Harris),(William Hurt)},{(Eddie Stall),(Tom Stall),(Carl Fogarty),(Richie Cusack)}))
+
+2. Load director-and-title.txt and group on the director name. Titles should appear as a nested bag.
+-------------------------------------------
+namesDirectors = LOAD '/Users/Abhi/Desktop/director-and-title.txt' AS (director:chararray, title:chararray, year:int);
+groupDirector = GROUP namesDirectors by director;
+titles = FOREACH groupDirector GENERATE group, (namesDirectors.title, namesDirectors.year);
+dump titles;
+-------------------------------------------
+OUTPUT:
+-------------------------------------------
+(Sam Raimi,({(Spider-Man)},{(2002)}))
+(Woody Allen,({(Match Point)},{(2005)}))
+(Michael Mann,({(Heat)},{(1995)}))
+(Sofia Coppola,({(Lost in Translation),(Marie Antoinette)},{(2003),(2006)}))
+(Clint Eastwood,({(Unforgiven)},{(1992)}))
+(David Cronenberg,({(A History of Violence)},{(2005)}))
+
+3. Apply the cogroup operator to associate a movie, its director and its actors from both sources.
+-------------------------------------------
+titlesActors = LOAD '/Users/Abhi/Desktop/title-and-actor.txt' AS (title:chararray, actor:chararray, birth:int, role:chararray);
+namesDirectors = LOAD '/Users/Abhi/Desktop/director-and-title.txt' AS (director:chararray, title:chararray, year:int);
+groupTitle = GROUP titlesActors BY title;
+titles = FOREACH groupTitle GENERATE group, (titlesActors.actor);
+cogrouped = COGROUP titles BY group, namesDirectors by title;
+dump cogrouped;
+-------------------------------------------
+OUTPUT:
+-------------------------------------------
+(Heat,{(Heat,{(Val Kilmer),(Al Pacino),(Jon Voight),(Robert De Niro)})},{(Michael Mann,Heat,1995)})
+(Spider-Man,{(Spider-Man,{(Tobey Maguire),(Willem Dafoe),(Kirsten Dunst)})},{(Sam Raimi,Spider-Man,2002)})
+(Unforgiven,{(Unforgiven,{(Gene Hackman),(Morgan Freeman),(Clint Eastwood)})},{(Clint Eastwood,Unforgiven,1992)})
+(Match Point,{(Match Point,{(Jonathan Rhys Meyers),(Scarlett  Johansson)})},{(Woody Allen,Match Point,2005)})
+(Marie Antoinette,{(Marie Antoinette,{(Kirsten Dunst),(Jason  Schwartzman)})},{(Sofia Coppola,Marie Antoinette,2006)})
+(Lost in Translation,{(Lost in Translation,{(Scarlett  Johansson),(Bill Murray)})},{(Sofia Coppola,Lost in Translation,2003)})
+(A History of Violence,{(A History of Violence,{(Maria Bello),(Vigo Mortensen),(Ed Harris),(William Hurt)})},{(David Cronenberg,A History of Violence,2005)})
+
+4. Write a PIG program that retrieves the actors that are also director of some movie. Output a tuple for each artist, with two nested bags, one with the movies s/he played a role in, and one with the movies s/he directed.
+-------------------------------------------
+namesActors = LOAD '/Users/Abhi/Desktop/title-and-actor.txt' AS (title:chararray, actor:chararray, birth:int, role:chararray);
+namesDirectors = LOAD '/Users/Abhi/Desktop/director-and-title.txt' AS (director:chararray, title:chararray, year:int);
+groupActorMovies = GROUP namesActors BY actor;
+actorTitles = FOREACH groupActorMovies GENERATE group, (namesActors.title);
+actorAndDirector = JOIN namesActors BY actor, namesDirectors BY director;
+result = COGROUP actorTitles BY group, actorAndDirector BY director;
+dump result;
+-------------------------------------------
+OUTPUT:
+-------------------------------------------
+(Al Pacino,{(Al Pacino,{(Heat)})},{})
+(Ed Harris,{(Ed Harris,{(A History of Violence)})},{})
+(Jon Voight,{(Jon Voight,{(Heat)})},{})
+(Val Kilmer,{(Val Kilmer,{(Heat)})},{})
+(Bill Murray,{(Bill Murray,{(Lost in Translation)})},{})
+(Maria Bello,{(Maria Bello,{(A History of Violence)})},{})
+(Gene Hackman,{(Gene Hackman,{(Unforgiven)})},{})
+(Willem Dafoe,{(Willem Dafoe,{(Spider-Man)})},{})
+(William Hurt,{(William Hurt,{(A History of Violence)})},{})
+(Kirsten Dunst,{(Kirsten Dunst,{(Spider-Man),(Marie Antoinette)})},{})
+(Tobey Maguire,{(Tobey Maguire,{(Spider-Man)})},{})
+(Clint Eastwood,{(Clint Eastwood,{(Unforgiven)})},{(Unforgiven,Clint Eastwood,1930,William 'Bill' Munny,Clint Eastwood,Unforgiven,1992)})
+(Morgan Freeman,{(Morgan Freeman,{(Unforgiven)})},{})
+(Robert De Niro,{(Robert De Niro,{(Heat)})},{})
+(Vigo Mortensen,{(Vigo Mortensen,{(A History of Violence)})},{})
+(Jason  Schwartzman,{(Jason  Schwartzman,{(Marie Antoinette)})},{})
+(Scarlett  Johansson,{(Scarlett  Johansson,{(Match Point),(Lost in Translation)})},{})
+(Jonathan Rhys Meyers,{(Jonathan Rhys Meyers,{(Match Point)})},{})
+
+5. Write a modified version that looks for artists that were both actors and director of a same movie.
+-------------------------------------------
+namesActors = LOAD '/Users/Abhi/Desktop/title-and-actor.txt' AS (title:chararray, actor:chararray, role:chararray);
+namesDirectors = LOAD '/Users/Abhi/Desktop/director-and-title.txt' AS (director:chararray, title:chararray, year:int);
+actorAndDirector = JOIN namesActors BY actor, namesDirectors BY director;
+dump actorAndDirector;
+-------------------------------------------
+OUTPUT:
+-------------------------------------------
+(Unforgiven,Clint Eastwood,1930,Clint Eastwood,Unforgiven,1992)
+
